@@ -152,6 +152,22 @@ class Trainer():
 
         return dataloader
 
+    def _to_chartjs(self, df: pd.DataFrame):
+        data = df.to_dict()
+
+        chart_data = []
+
+        for strat, res in data.items():
+            data_strat = {
+                'label': strat,
+                'data': []
+            }
+            for date, cret in res.items():
+                data_strat['data'].append({'x': date.strftime("%Y-%m-%d"), 'y': cret})
+            chart_data.append(data_strat)
+
+        return chart_data
+
     def _save(self, models: dict, results: pd.DataFrame):
         # check if save exists
         if not os.path.exists('./save/'):
@@ -204,6 +220,11 @@ class Trainer():
         plot = results.plot()
         fig = plot.get_figure()
         fig.savefig(f'results_{self.name}/results.png')
+
+        # chart data
+        chart_results = self._to_chartjs(results)
+        with open(f'results_{self.name}/chart.json', 'w+') as fd:
+            json.dump(chart_results, fd)
 
         # save models
         logging.debug("Saving models")

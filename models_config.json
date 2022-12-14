@@ -4,14 +4,14 @@
       "input_dim": 4,
       "output_dim": 4,
       "hidden_dim": 64,
-      "layer_dim": 4,
+      "layer_dim": 3,
       "dropout_prob": 0.2,
-      "lower_bound": 0.1,
-      "upper_bound": 0.4
+      "lower_bound": 0.2,
+      "upper_bound": 0.5
     },
 
     "hyper_params": {
-      "epochs": 1,
+      "epochs": 3,
       "learning_rate": 1e-2
     }
   },
