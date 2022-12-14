@@ -32,7 +32,11 @@ logging.getLogger('matplotlib').setLevel(logging.ERROR)
 
 
 class Trainer():
-    def __init__(self, data, train_step, timestep, batch_size=64, device='cpu'):
+    def __init__(self, name, data, train_step, timestep, batch_size=64, device='cpu'):
+        # trainer
+        self.name = name
+        logging.debug(f"Training model: {self.name}")
+
         # backtesting data
         self.data = data
         self.tickers = data.Ticker.unique()

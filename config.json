@@ -1,4 +1,5 @@
 {
+    "name": "test",
     "tickers": "VTI AGG DBC ^VIX",
     "start_date": "2010-01-01",
     "end_date": "2022-10-01",

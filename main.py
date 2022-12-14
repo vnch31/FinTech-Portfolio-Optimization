@@ -24,7 +24,7 @@ logging.basicConfig(
 logging.getLogger('matplotlib').setLevel(logging.ERROR)
 
 
-def main(tickers, start_date, end_date, interval, timestep, train, batch_size, device='cpu'):
+def main(name, tickers, start_date, end_date, interval, timestep, train, batch_size, device='cpu'):
     # logs parameters
     logging.debug(
         "Creating, training and testing models with the following parameters:")
@@ -46,7 +46,7 @@ retrain every {train} year with {timestep} days
         
     logging.debug(f"Training and testing with the device: {device}")
 
-    trainer = Trainer(df, train_step=train, timestep=timestep, batch_size=batch_size)
+    trainer = Trainer(name=name, data=df, train_step=train, timestep=timestep, batch_size=batch_size)
 
     trainer.run(models=['lstm'])
 
@@ -56,6 +56,7 @@ if __name__ == "__main__":
     parser = argparse.ArgumentParser(
         description="Dataloader options, if no argument given config.json will be used"
     )
+    parser.add_argument('-n', '--name', help="Name of the model")
     parser.add_argument('-t', '--tickers', nargs='+',
                         help="Tickers to retrieve")
     parser.add_argument('-s', '--start', help="Start date : YYYY-MM-DD")
