@@ -217,7 +217,7 @@ class Trainer():
 
         return model, opti
 
-    def run(self):
+    def run(self, models: list):
         # create dictionnary of models
         all_models = {}
 
