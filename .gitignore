@@ -1,0 +1,8 @@
+# file extensions
+*.csv
+*log
+*.pt
+*.DS_Store
+
+# directory
+__pycache__
