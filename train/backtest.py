@@ -67,7 +67,7 @@ class Backtest():
         results.plot()
         plt.show()
 
-    def run(self, timestep=50, plot=True):
+    def run(self, timestep=50, plot=False):
         """
         Loop through all the data and give it to the strategy
         """
@@ -101,6 +101,8 @@ class Backtest():
 
         results = [self._to_df(res[0], res[1]) for res in results]
         df_results = pd.concat(results, axis=1)
-        self._plot_curve(df_results)
+        
+        if plot:
+            self._plot_curve(df_results)
     
         return df_results
