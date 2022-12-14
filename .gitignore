@@ -6,3 +6,5 @@
 
 # directory
 __pycache__
+save/
+data/downloads/

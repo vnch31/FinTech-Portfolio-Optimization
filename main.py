@@ -35,8 +35,8 @@ retrain every {train} year with {timestep} days
 
     # download or load data
     logging.debug("Getting data")
-    df = dataloader.get_data_yfinance(
-        tickers=tickers, start_date=start_date, end_date=end_date, interval=interval)
+    filename = f"dataset_{start_date}_{end_date}_{tickers.replace(' ', '_')}.csv"
+    df = dataloader.get_data_yfinance(tickers=tickers, start_date=start_date, end_date=end_date, interval=interval)
 
     # setting training device 
     device = 'cpu'
@@ -46,7 +46,7 @@ retrain every {train} year with {timestep} days
         
     logging.debug(f"Training and testing with the device: {device}")
 
-    trainer = Trainer(name=name, data=df, train_step=train, timestep=timestep, batch_size=batch_size)
+    trainer = Trainer(name=name, dataset_name=filename, data=df, train_step=train, timestep=timestep, batch_size=batch_size)
 
     trainer.run(models=['lstm'])
 

@@ -2,6 +2,7 @@ import logging
 import os
 import json
 import sys
+import json
 
 import pandas as pd
 import numpy as np
@@ -32,9 +33,10 @@ logging.getLogger('matplotlib').setLevel(logging.ERROR)
 
 
 class Trainer():
-    def __init__(self, name, data, train_step, timestep, batch_size=64, device='cpu'):
+    def __init__(self, name, dataset_name, data, train_step, timestep, batch_size=64, device='cpu'):
         # trainer
         self.name = name
+        self.dataset_name = dataset_name.split('.')[0]
         logging.debug(f"Training model: {self.name}")
 
         # backtesting data
@@ -152,6 +154,61 @@ class Trainer():
         dataloader = DataLoader(pt_dataset)
 
         return dataloader
+
+    def _save(self, models: dict, results: pd.DataFrame):
+        # check if save exists
+        if not os.path.exists('./save/'):
+            logging.debug("Creating save directory")
+            os.mkdir('save')
+
+        # move in ./save
+        os.chdir('save')
+
+        # check if some results for this dataset
+        exists = True
+        if not os.path.exists(f'./{self.dataset_name}/'):
+            logging.debug(f"Creating {self.dataset_name} directory in save")
+            os.mkdir(self.dataset_name)
+            # file doesn't exists if dir not exists
+            exists = False
+        
+        # move in ./{dataset_name}
+        os.chdir(self.dataset_name)
+
+        # open config file
+        if exists:
+            with open('info.json', 'r') as fd:
+                # load data if file exists
+                info = json.load(fd)
+        else:
+            info = []
+        
+        # add new model name
+        info.append(self.name)
+        # unique if same name
+        info = list(set(info))
+
+        with open('info.json', 'w+') as fd:
+            # add name of the model in info file
+            json.dump(info, fd)
+
+        # create results and models directory
+        if not os.path.exists(f'results_{self.name}'):
+            os.mkdir(f'results_{self.name}')
+
+        if not os.path.exists(f'models_{self.name}'):
+            os.mkdir(f'models_{self.name}')
+
+        # save results
+        logging.debug("Saving results")
+        results.to_json(f'results_{self.name}/results.json')
+
+        # save models
+        logging.debug("Saving models")
+        for model_name, model_list in models.items():
+            torch.save(model_list[-1], f'models_{self.name}/{model_name}.pt')
+    
+            
 
     def _train_test(
         self,
@@ -278,9 +335,14 @@ class Trainer():
 
         # ---- Test -----
         backtest = Backtest(self.data.copy(), all_models, self.tickers, self.train_step)
-        backtest.run(self.timestep)
+        df_results = backtest.run(self.timestep)
 
         # ----- Save -----
+        self._save(models=all_models, results=df_results)
+
+
+            
+
 
 
 

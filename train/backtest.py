@@ -29,13 +29,19 @@ def get_mdd(daily):
 
 class Backtest():
     def __init__(self, dataset: pd.DataFrame, models: dict, tickers: list, train_step: int):
-        self.dataset = dataset
+        self.dataset = self._reshape_dataset(dataset.copy(), train_step)
         self.models = models
         self.tickers = tickers
         self.train_step = train_step
         self.strategies = []
         
         self._create_strategies()
+
+    def _reshape_dataset(self, data: pd.DataFrame, train_step: int):
+        years = data.Date.dt.year.unique()
+        first_train_year = years[train_step-1]
+        data['year'] = pd.to_datetime(data["Date"], "%Y")
+        return data.loc[data["year"].dt.year > first_train_year]
 
     def _create_strategies(self):
         # hard code strategy for now
@@ -96,3 +102,5 @@ class Backtest():
         results = [self._to_df(res[0], res[1]) for res in results]
         df_results = pd.concat(results, axis=1)
         self._plot_curve(df_results)
+    
+        return df_results
