@@ -8,9 +8,6 @@ import pandas as pd
 import numpy as np
 # pytorch
 import torch
-from torch import nn, optim
-import torch.nn.functional as F
-from torch.nn.utils import weight_norm
 from torch.utils.data import TensorDataset, DataLoader
 
 from train import losses
@@ -202,6 +199,11 @@ class Trainer():
         # save results
         logging.debug("Saving results")
         results.to_json(f'results_{self.name}/results.json')
+
+        # save figure
+        plot = results.plot()
+        fig = plot.get_figure()
+        fig.savefig(f'results_{self.name}/results.png')
 
         # save models
         logging.debug("Saving models")
