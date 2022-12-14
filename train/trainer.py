@@ -16,6 +16,8 @@ from train.backtest import Backtest
 from models.lstm import LSTM
 from models.gru import GRU
 from models.rnn import RNN
+from models.tcn import TCN
+from models.transformer import TransformerEncoder
 
 # logging configuration
 logging.basicConfig(
@@ -255,12 +257,12 @@ class Trainer():
             elif model_name.lower() == 'gru':
                 logging.debug(f"[+] Creating GRU model")
                 model = GRU(**params).to(self.device)
-            # elif model_name.lower() == 'encoder':
-            #     logging.debug("[+] Creating Transformer Encoder model")
-            #     model = TransformerEncoder(**params).to(self.device)
-            # elif model_name.lower() == 'tcn':
-            #     logging.debug("[+] Creating TCN model")
-            #     model = TCN(**params).to(device)
+            elif model_name.lower() == 'transformer':
+                logging.debug("[+] Creating Transformer Encoder model")
+                model = TransformerEncoder(**params).to(self.device)
+            elif model_name.lower() == 'tcn':
+                logging.debug("[+] Creating TCN model")
+                model = TCN(**params).to(self.device)
 
             if not model:
                 logging.error("[-] An error occured, model is None")

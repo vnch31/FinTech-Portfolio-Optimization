@@ -18,9 +18,9 @@ class LSTM(nn.Module):
             self.lower_bound = lower_bound
             self.upper_bound = upper_bound
 
-            # Define number of layers and node in each layer
-            self.hidden_dim = hidden_dim
-            self.layer_dim = layer_dim
+        # Define number of layers and node in each layer
+        self.hidden_dim = hidden_dim
+        self.layer_dim = layer_dim
 
         # RNN Stack
         self.lstm = nn.LSTM(

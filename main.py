@@ -48,7 +48,7 @@ retrain every {train} year with {timestep} days
 
     trainer = Trainer(name=name, dataset_name=filename, data=df, train_step=train, timestep=timestep, batch_size=batch_size)
 
-    trainer.run(models=['lstm'])
+    trainer.run(models=['lstm', 'tcn', 'rnn', 'gru', 'transformer'])
 
 
 if __name__ == "__main__":

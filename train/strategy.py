@@ -1,6 +1,19 @@
 import torch
+import logging
+import sys
 import pandas as pd
 import numpy as np
+
+# logging configuration
+logging.basicConfig(
+    level=logging.DEBUG,
+    format="%(asctime)s [%(levelname)s] %(message)s",
+    handlers=[
+        logging.FileHandler("train.log"),
+        logging.StreamHandler(sys.stdout)
+    ]
+)
+logging.getLogger('matplotlib').setLevel(logging.ERROR)
 
 
 class Strategy():
@@ -73,17 +86,17 @@ class DeepLearningStrategy(Strategy):
 
         # first pass
         if self.current_year is None:
-            print("First year: ", year)
+            logging.debug(f"First year: {year}")
             self.current_year = year
         elif self.current_year != year:
-            print("Changing year: ", year)
+            logging.debug(f"Changing year: {year}")
             self.current_year = year
             self.cpt += 1
             if self.cpt % self.train_step == 0:
                 if len(self.models) == self.current_model+1:
-                    print("Last model")
+                    logging.debug("Last model")
                 else:
-                    print("Changing model: ", self.current_model)
+                    logging.debug(f"Changing model: {self.name} - {self.current_model}")
                     self.cpt = 0
                     self.current_model += 1
 
