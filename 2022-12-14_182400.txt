@@ -1,0 +1,284 @@
+2022-12-14 18:24:36,553 [DEBUG] use config:config-cuda-20-252.json
+2022-12-14 18:24:36,553 [DEBUG] Creating, training and testing models with the following parameters:
+2022-12-14 18:24:36,553 [DEBUG] VTI AGG DBC ^VIX
+from 2006-01-01 to 2022-10-01 with 1d interval
+retrain every 2 year with 50 days
+
+2022-12-14 18:24:36,553 [DEBUG] Getting data
+2022-12-14 18:24:36,553 [DEBUG] Fetch data using the following parameters:
+2022-12-14 18:24:36,553 [DEBUG] Tickers: VTI AGG DBC ^VIX
+2022-12-14 18:24:36,553 [DEBUG] Start date: 2006-01-01
+2022-12-14 18:24:36,553 [DEBUG] End date: 2022-10-01
+2022-12-14 18:24:36,554 [DEBUG] Interval: 1d
+2022-12-14 18:24:36,554 [DEBUG] File dataset_2006-01-01_2022-10-01_VTI_AGG_DBC_^VIX.csv, no need to download, loading file...
+2022-12-14 18:24:36,571 [DEBUG]        Unnamed: 0        Date Ticker  ...         Low        Open      Volume
+0               0  2006-01-03    AGG  ...   59.801179   59.866725    170600.0
+1               1  2006-01-03    VTI  ...   44.781733   45.091552   1769800.0
+2               2  2006-01-03   ^VIX  ...   10.990000   12.250000         0.0
+3               3  2006-01-04    AGG  ...   59.950149   59.997819    284500.0
+4               4  2006-01-04    VTI  ...   45.652858   45.678373    763600.0
+...           ...         ...    ...  ...         ...         ...         ...
+16836       16836  2022-09-29   ^VIX  ...   31.160000   31.670000         0.0
+16837       16837  2022-09-30    AGG  ...   95.320501   95.984443  14376300.0
+16838       16838  2022-09-30    DBC  ...   23.840000   24.020000   3947600.0
+16839       16839  2022-09-30    VTI  ...  179.279999  181.559998   8431700.0
+16840       16840  2022-09-30   ^VIX  ...   29.389999   31.610001         0.0
+
+[16841 rows x 8 columns]
+2022-12-14 18:24:36,623 [DEBUG] Training and testing with the device: cuda
+2022-12-14 18:24:36,623 [DEBUG] Training model: cuda-20-252
+2022-12-14 18:24:37,910 [DEBUG] Training from 2006, 2007
+2022-12-14 18:24:37,940 [DEBUG] [+] Creating LSTM model
+2022-12-14 18:24:37,942 [DEBUG] [+] Setting sgd optimizer
+2022-12-14 18:24:37,942 [DEBUG] [+] Training model...
+[1/20] Train loss : 0.0390, validation loss : 0.0659
+[2/20] Train loss : 0.0601, validation loss : 0.0659
+[3/20] Train loss : 0.0601, validation loss : 0.0659
+[4/20] Train loss : 0.0601, validation loss : 0.0659
+[5/20] Train loss : 0.0601, validation loss : 0.0659
+[6/20] Train loss : 0.0601, validation loss : 0.0659
+[7/20] Train loss : 0.0601, validation loss : 0.0659
+[8/20] Train loss : 0.0601, validation loss : 0.0659
+[9/20] Train loss : 0.0601, validation loss : 0.0659
+[10/20] Train loss : 0.0601, validation loss : 0.0659
+[20/20] Train loss : 0.0601, validation loss : 0.0659
+2022-12-14 18:28:17,181 [DEBUG] [+] Creating TCN model
+2022-12-14 18:28:17,184 [DEBUG] [+] Setting sgd optimizer
+2022-12-14 18:28:17,184 [DEBUG] [+] Training model...
+[1/20] Train loss : 0.0547, validation loss : 0.0659
+[2/20] Train loss : 0.0601, validation loss : 0.0659
+[3/20] Train loss : 0.0601, validation loss : 0.0659
+[4/20] Train loss : 0.0601, validation loss : 0.0659
+[5/20] Train loss : 0.0601, validation loss : 0.0659
+[6/20] Train loss : 0.0601, validation loss : 0.0659
+[7/20] Train loss : 0.0601, validation loss : 0.0659
+[8/20] Train loss : 0.0601, validation loss : 0.0659
+[9/20] Train loss : 0.0601, validation loss : 0.0659
+[10/20] Train loss : 0.0601, validation loss : 0.0659
+[20/20] Train loss : 0.0601, validation loss : 0.0659
+2022-12-14 18:28:44,306 [DEBUG] [+] Creating RNN model
+2022-12-14 18:28:44,308 [DEBUG] [+] Setting sgd optimizer
+2022-12-14 18:28:44,308 [DEBUG] [+] Training model...
+[1/20] Train loss : 0.1188, validation loss : 0.0769
+[2/20] Train loss : 0.1324, validation loss : 0.1420
+[3/20] Train loss : 0.1213, validation loss : 0.1659
+[4/20] Train loss : 0.1381, validation loss : 0.1821
+[5/20] Train loss : 0.1391, validation loss : 0.1920
+[6/20] Train loss : 0.1398, validation loss : 0.1950
+[7/20] Train loss : 0.1403, validation loss : 0.1858
+[8/20] Train loss : 0.1403, validation loss : 0.1841
+[9/20] Train loss : 0.1408, validation loss : 0.1863
+[10/20] Train loss : 0.1413, validation loss : 0.1914
+[20/20] Train loss : 0.1440, validation loss : 0.2546
+2022-12-14 18:30:23,620 [DEBUG] [+] Creating GRU model
+2022-12-14 18:30:23,623 [DEBUG] [+] Setting sgd optimizer
+2022-12-14 18:30:23,624 [DEBUG] [+] Training model...
+[1/20] Train loss : 0.1115, validation loss : 0.1106
+[2/20] Train loss : 0.1346, validation loss : 0.1713
+[3/20] Train loss : 0.1376, validation loss : 0.1893
+[4/20] Train loss : 0.1393, validation loss : 0.1898
+[5/20] Train loss : 0.1401, validation loss : 0.1911
+[6/20] Train loss : 0.1406, validation loss : 0.1893
+[7/20] Train loss : 0.1409, validation loss : 0.1846
+[8/20] Train loss : 0.1411, validation loss : 0.1871
+[9/20] Train loss : 0.1415, validation loss : 0.1926
+[10/20] Train loss : 0.1424, validation loss : 0.1989
+[20/20] Train loss : 0.1443, validation loss : 0.2576
+2022-12-14 18:39:15,259 [DEBUG] [+] Creating Transformer Encoder model
+2022-12-14 18:39:15,265 [DEBUG] [+] Setting sgd optimizer
+2022-12-14 18:39:15,265 [DEBUG] [+] Training model...
+[1/20] Train loss : 0.0585, validation loss : 0.0659
+[2/20] Train loss : 0.0601, validation loss : 0.0659
+[3/20] Train loss : 0.0601, validation loss : 0.0659
+[4/20] Train loss : 0.0601, validation loss : 0.0659
+[5/20] Train loss : 0.0601, validation loss : 0.0659
+[6/20] Train loss : 0.0601, validation loss : 0.0659
+[7/20] Train loss : 0.0601, validation loss : 0.0659
+[8/20] Train loss : 0.0601, validation loss : 0.0659
+[9/20] Train loss : 0.0601, validation loss : 0.0659
+[10/20] Train loss : 0.0601, validation loss : 0.0659
+[20/20] Train loss : 0.0601, validation loss : 0.0659
+2022-12-14 18:40:01,295 [DEBUG] Training from 2008, 2009
+2022-12-14 18:40:01,317 [DEBUG] [+] Setting sgd optimizer
+2022-12-14 18:40:01,317 [DEBUG] [+] Training model...
+[1/20] Train loss : -0.0515, validation loss : 0.0983
+[2/20] Train loss : -0.0515, validation loss : 0.0983
+[3/20] Train loss : -0.0515, validation loss : 0.0983
+[4/20] Train loss : -0.0515, validation loss : 0.0983
+[5/20] Train loss : -0.0515, validation loss : 0.0983
+[6/20] Train loss : -0.0515, validation loss : 0.0983
+[7/20] Train loss : -0.0515, validation loss : 0.0983
+[8/20] Train loss : -0.0515, validation loss : 0.0983
+[9/20] Train loss : -0.0515, validation loss : 0.0983
+[10/20] Train loss : -0.0515, validation loss : 0.0983
+[20/20] Train loss : -0.0515, validation loss : 0.0983
+2022-12-14 18:43:45,615 [DEBUG] [+] Setting sgd optimizer
+2022-12-14 18:43:45,615 [DEBUG] [+] Training model...
+[1/20] Train loss : -0.0515, validation loss : 0.0983
+[2/20] Train loss : -0.0515, validation loss : 0.0983
+[3/20] Train loss : -0.0515, validation loss : 0.0983
+[4/20] Train loss : -0.0515, validation loss : 0.0983
+[5/20] Train loss : -0.0515, validation loss : 0.0983
+[6/20] Train loss : -0.0515, validation loss : 0.0983
+[7/20] Train loss : -0.0515, validation loss : 0.0983
+[8/20] Train loss : -0.0515, validation loss : 0.0983
+[9/20] Train loss : -0.0515, validation loss : 0.0983
+[10/20] Train loss : -0.0515, validation loss : 0.0983
+[20/20] Train loss : -0.0515, validation loss : 0.0983
+2022-12-14 18:44:17,330 [DEBUG] [+] Setting sgd optimizer
+2022-12-14 18:44:17,331 [DEBUG] [+] Training model...
+[1/20] Train loss : -0.0216, validation loss : 0.1374
+[2/20] Train loss : -0.0190, validation loss : 0.1355
+[3/20] Train loss : -0.0187, validation loss : 0.1350
+[4/20] Train loss : -0.0185, validation loss : 0.1347
+[5/20] Train loss : -0.0185, validation loss : 0.1346
+[6/20] Train loss : -0.0185, validation loss : 0.1345
+[7/20] Train loss : -0.0184, validation loss : 0.1345
+[8/20] Train loss : -0.0193, validation loss : 0.1346
+[9/20] Train loss : -0.0299, validation loss : 0.1279
+[10/20] Train loss : 0.0054, validation loss : 0.1218
+[20/20] Train loss : 0.0056, validation loss : 0.1222
+2022-12-14 18:46:11,564 [DEBUG] [+] Setting sgd optimizer
+2022-12-14 18:46:11,564 [DEBUG] [+] Training model...
+[1/20] Train loss : -0.0216, validation loss : 0.1374
+[2/20] Train loss : -0.0190, validation loss : 0.1356
+[3/20] Train loss : -0.0186, validation loss : 0.1350
+[4/20] Train loss : -0.0185, validation loss : 0.1347
+[5/20] Train loss : -0.0185, validation loss : 0.1346
+[6/20] Train loss : -0.0184, validation loss : 0.1345
+[7/20] Train loss : -0.0184, validation loss : 0.1344
+[8/20] Train loss : -0.0185, validation loss : 0.1345
+[9/20] Train loss : -0.0186, validation loss : 0.1345
+[10/20] Train loss : -0.0222, validation loss : 0.1352
+[20/20] Train loss : -0.0167, validation loss : -0.0082
+2022-12-14 18:56:10,350 [DEBUG] [+] Setting sgd optimizer
+2022-12-14 18:56:10,351 [DEBUG] [+] Training model...
+[1/20] Train loss : -0.0569, validation loss : 0.1089
+[2/20] Train loss : -0.0277, validation loss : 0.0703
+[3/20] Train loss : -0.0250, validation loss : 0.0697
+[4/20] Train loss : -0.0243, validation loss : 0.0700
+[5/20] Train loss : -0.0248, validation loss : 0.0701
+[6/20] Train loss : -0.0248, validation loss : 0.0700
+[7/20] Train loss : -0.0249, validation loss : 0.0698
+[8/20] Train loss : -0.0247, validation loss : 0.0700
+[9/20] Train loss : -0.0249, validation loss : 0.0699
+[10/20] Train loss : -0.0244, validation loss : 0.0698
+[20/20] Train loss : -0.0248, validation loss : 0.0697
+2022-12-14 18:56:58,664 [DEBUG] Training from 2010, 2011
+2022-12-14 18:56:58,685 [DEBUG] [+] Setting sgd optimizer
+2022-12-14 18:56:58,685 [DEBUG] [+] Training model...
+[1/20] Train loss : 0.0423, validation loss : -0.0350
+[2/20] Train loss : 0.0423, validation loss : -0.0350
+[3/20] Train loss : 0.0423, validation loss : -0.0350
+[4/20] Train loss : 0.0423, validation loss : -0.0350
+[5/20] Train loss : 0.0423, validation loss : -0.0350
+[6/20] Train loss : 0.0423, validation loss : -0.0350
+[7/20] Train loss : 0.0423, validation loss : -0.0350
+[8/20] Train loss : 0.0423, validation loss : -0.0350
+[9/20] Train loss : 0.0423, validation loss : -0.0350
+[10/20] Train loss : 0.0423, validation loss : -0.0350
+[20/20] Train loss : 0.0423, validation loss : -0.0350
+2022-12-14 19:00:41,241 [DEBUG] [+] Setting sgd optimizer
+2022-12-14 19:00:41,241 [DEBUG] [+] Training model...
+[1/20] Train loss : 0.0423, validation loss : -0.0350
+[2/20] Train loss : 0.0423, validation loss : -0.0350
+[3/20] Train loss : 0.0423, validation loss : -0.0350
+[4/20] Train loss : 0.0423, validation loss : -0.0350
+[5/20] Train loss : 0.0423, validation loss : -0.0350
+[6/20] Train loss : 0.0423, validation loss : -0.0350
+[7/20] Train loss : 0.0423, validation loss : -0.0350
+[8/20] Train loss : 0.0423, validation loss : -0.0350
+[9/20] Train loss : 0.0423, validation loss : -0.0350
+[10/20] Train loss : 0.0423, validation loss : -0.0350
+[20/20] Train loss : 0.0423, validation loss : -0.0350
+2022-12-14 19:01:12,600 [DEBUG] [+] Setting sgd optimizer
+2022-12-14 19:01:12,600 [DEBUG] [+] Training model...
+[1/20] Train loss : 0.0836, validation loss : -0.0151
+[2/20] Train loss : 0.0837, validation loss : -0.0165
+[3/20] Train loss : 0.0837, validation loss : -0.0153
+[4/20] Train loss : 0.0855, validation loss : 0.0181
+[5/20] Train loss : 0.1159, validation loss : 0.0216
+[6/20] Train loss : 0.1215, validation loss : 0.0208
+[7/20] Train loss : 0.1186, validation loss : 0.0193
+[8/20] Train loss : 0.1223, validation loss : 0.0175
+[9/20] Train loss : 0.1240, validation loss : 0.0190
+[10/20] Train loss : 0.1255, validation loss : 0.0195
+[20/20] Train loss : 0.1256, validation loss : 0.0192
+2022-12-14 19:03:26,152 [DEBUG] [+] Setting sgd optimizer
+2022-12-14 19:03:26,152 [DEBUG] [+] Training model...
+[1/20] Train loss : 0.0536, validation loss : 0.0160
+[2/20] Train loss : 0.1117, validation loss : 0.0196
+[3/20] Train loss : 0.1240, validation loss : 0.0188
+[4/20] Train loss : 0.1243, validation loss : 0.0198
+[5/20] Train loss : 0.1261, validation loss : 0.0199
+[6/20] Train loss : 0.1262, validation loss : 0.0199
+[7/20] Train loss : 0.1262, validation loss : 0.0196
+[8/20] Train loss : 0.1264, validation loss : 0.0194
+[9/20] Train loss : 0.1264, validation loss : 0.0193
+[10/20] Train loss : 0.1262, validation loss : 0.0193
+[20/20] Train loss : 0.1276, validation loss : 0.0191
+2022-12-14 19:13:20,923 [DEBUG] [+] Setting sgd optimizer
+2022-12-14 19:13:20,923 [DEBUG] [+] Training model...
+[1/20] Train loss : 0.0284, validation loss : -0.0858
+[2/20] Train loss : 0.0283, validation loss : -0.0860
+[3/20] Train loss : 0.0284, validation loss : -0.0859
+[4/20] Train loss : 0.0284, validation loss : -0.0857
+[5/20] Train loss : 0.0284, validation loss : -0.0855
+[6/20] Train loss : 0.0284, validation loss : -0.0857
+[7/20] Train loss : 0.0285, validation loss : -0.0860
+[8/20] Train loss : 0.0293, validation loss : -0.0866
+[9/20] Train loss : 0.0348, validation loss : -0.0447
+[10/20] Train loss : 0.0584, validation loss : -0.0407
+[20/20] Train loss : 0.0660, validation loss : -0.0380
+2022-12-14 19:14:03,229 [DEBUG] Training from 2012, 2013
+2022-12-14 19:14:03,251 [DEBUG] [+] Setting sgd optimizer
+2022-12-14 19:14:03,251 [DEBUG] [+] Training model...
+[1/20] Train loss : 0.0153, validation loss : 0.0429
+[2/20] Train loss : 0.0153, validation loss : 0.0429
+[3/20] Train loss : 0.0153, validation loss : 0.0429
+[4/20] Train loss : 0.0153, validation loss : 0.0429
+[5/20] Train loss : 0.0153, validation loss : 0.0429
+[6/20] Train loss : 0.0153, validation loss : 0.0429
+[7/20] Train loss : 0.0153, validation loss : 0.0429
+[8/20] Train loss : 0.0153, validation loss : 0.0429
+[9/20] Train loss : 0.0153, validation loss : 0.0429
+[10/20] Train loss : 0.0153, validation loss : 0.0429
+[20/20] Train loss : 0.0153, validation loss : 0.0429
+2022-12-14 19:17:45,564 [DEBUG] [+] Setting sgd optimizer
+2022-12-14 19:17:45,564 [DEBUG] [+] Training model...
+[1/20] Train loss : 0.0153, validation loss : 0.0429
+[2/20] Train loss : 0.0153, validation loss : 0.0429
+[3/20] Train loss : 0.0153, validation loss : 0.0429
+[4/20] Train loss : 0.0153, validation loss : 0.0429
+[5/20] Train loss : 0.0153, validation loss : 0.0429
+[6/20] Train loss : 0.0153, validation loss : 0.0429
+[7/20] Train loss : 0.0153, validation loss : 0.0429
+[8/20] Train loss : 0.0153, validation loss : 0.0429
+[9/20] Train loss : 0.0153, validation loss : 0.0429
+[10/20] Train loss : 0.0153, validation loss : 0.0429
+[20/20] Train loss : 0.0153, validation loss : 0.0429
+2022-12-14 19:18:16,702 [DEBUG] [+] Setting sgd optimizer
+2022-12-14 19:18:16,703 [DEBUG] [+] Training model...
+[1/20] Train loss : 0.0904, validation loss : 0.1000
+[2/20] Train loss : 0.1083, validation loss : 0.1025
+[3/20] Train loss : 0.1127, validation loss : 0.1040
+[4/20] Train loss : 0.1138, validation loss : 0.1054
+[5/20] Train loss : 0.1142, validation loss : 0.1082
+[6/20] Train loss : 0.1143, validation loss : 0.1121
+[7/20] Train loss : 0.1143, validation loss : 0.1163
+[8/20] Train loss : 0.1144, validation loss : 0.1215
+[9/20] Train loss : 0.1144, validation loss : 0.1259
+[10/20] Train loss : 0.1144, validation loss : 0.1305
+[20/20] Train loss : 0.1139, validation loss : 0.1770
+2022-12-14 19:20:08,915 [DEBUG] [+] Setting sgd optimizer
+2022-12-14 19:20:08,916 [DEBUG] [+] Training model...
+[1/20] Train loss : 0.1176, validation loss : 0.1039
+[2/20] Train loss : 0.1142, validation loss : 0.1066
+[3/20] Train loss : 0.1143, validation loss : 0.1099
+[4/20] Train loss : 0.1143, validation loss : 0.1145
+[5/20] Train loss : 0.1144, validation loss : 0.1190
+[6/20] Train loss : 0.1144, validation loss : 0.1244
+[7/20] Train loss : 0.1144, validation loss : 0.1291
+[8/20] Train loss : 0.1143, validation loss : 0.1341
+[9/20] Train loss : 0.1143, validation loss : 0.1388
+[10/20] Train loss : 0.1141, validation loss : 0.1435

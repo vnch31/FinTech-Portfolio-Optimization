@@ -1,0 +1,523 @@
+2022-12-14 22:47:25,791 [DEBUG] use config:config-cuda-20-252.json
+2022-12-14 22:47:25,793 [DEBUG] Creating, training and testing models with the following parameters:
+2022-12-14 22:47:25,793 [DEBUG] VTI AGG DBC ^VIX
+from 2006-01-01 to 2022-10-01 with 1d interval
+retrain every 2 year with 50 days
+
+2022-12-14 22:47:25,794 [DEBUG] Getting data
+2022-12-14 22:47:25,794 [DEBUG] Fetch data using the following parameters:
+2022-12-14 22:47:25,794 [DEBUG] Tickers: VTI AGG DBC ^VIX
+2022-12-14 22:47:25,795 [DEBUG] Start date: 2006-01-01
+2022-12-14 22:47:25,795 [DEBUG] End date: 2022-10-01
+2022-12-14 22:47:25,795 [DEBUG] Interval: 1d
+2022-12-14 22:47:25,796 [DEBUG] File dataset_2006-01-01_2022-10-01_VTI_AGG_DBC_^VIX.csv, no need to download, loading file...
+2022-12-14 22:47:25,979 [DEBUG]        Unnamed: 0        Date Ticker  ...         Low        Open      Volume
+0               0  2006-01-03    AGG  ...   59.801179   59.866725    170600.0
+1               1  2006-01-03    VTI  ...   44.781733   45.091552   1769800.0
+2               2  2006-01-03   ^VIX  ...   10.990000   12.250000         0.0
+3               3  2006-01-04    AGG  ...   59.950149   59.997819    284500.0
+4               4  2006-01-04    VTI  ...   45.652858   45.678373    763600.0
+...           ...         ...    ...  ...         ...         ...         ...
+16836       16836  2022-09-29   ^VIX  ...   31.160000   31.670000         0.0
+16837       16837  2022-09-30    AGG  ...   95.320501   95.984443  14376300.0
+16838       16838  2022-09-30    DBC  ...   23.840000   24.020000   3947600.0
+16839       16839  2022-09-30    VTI  ...  179.279999  181.559998   8431700.0
+16840       16840  2022-09-30   ^VIX  ...   29.389999   31.610001         0.0
+
+[16841 rows x 8 columns]
+2022-12-14 22:47:26,235 [DEBUG] Training and testing with the device: cuda
+2022-12-14 22:47:26,235 [DEBUG] Training model: cuda-20-252
+2022-12-14 22:47:39,568 [DEBUG] Training from 2006, 2007
+2022-12-14 22:47:39,705 [DEBUG] [+] Creating LSTM model
+2022-12-14 22:47:39,722 [DEBUG] [+] Setting sgd optimizer
+2022-12-14 22:47:39,724 [DEBUG] [+] Training model...
+[1/5] Train loss : 0.0382, validation loss : 0.0659
+[2/5] Train loss : 0.0601, validation loss : 0.0659
+[3/5] Train loss : 0.0601, validation loss : 0.0659
+[4/5] Train loss : 0.0601, validation loss : 0.0659
+[5/5] Train loss : 0.0601, validation loss : 0.0659
+2022-12-14 22:52:00,364 [DEBUG] [+] Creating TCN model
+2022-12-14 22:52:00,369 [DEBUG] [+] Setting sgd optimizer
+2022-12-14 22:52:00,369 [DEBUG] [+] Training model...
+[1/5] Train loss : 0.0561, validation loss : 0.0659
+[2/5] Train loss : 0.0601, validation loss : 0.0659
+[3/5] Train loss : 0.0601, validation loss : 0.0659
+[4/5] Train loss : 0.0601, validation loss : 0.0659
+[5/5] Train loss : 0.0601, validation loss : 0.0659
+2022-12-14 22:52:10,781 [DEBUG] [+] Creating RNN model
+2022-12-14 22:52:10,782 [DEBUG] [+] Setting sgd optimizer
+2022-12-14 22:52:10,782 [DEBUG] [+] Training model...
+[1/5] Train loss : 0.1241, validation loss : 0.1044
+[2/5] Train loss : 0.1291, validation loss : 0.1042
+[3/5] Train loss : 0.1345, validation loss : 0.1706
+[4/5] Train loss : 0.1388, validation loss : 0.1845
+[5/5] Train loss : 0.1390, validation loss : 0.1894
+2022-12-14 22:52:51,138 [DEBUG] [+] Creating GRU model
+2022-12-14 22:52:51,142 [DEBUG] [+] Setting sgd optimizer
+2022-12-14 22:52:51,143 [DEBUG] [+] Training model...
+[1/5] Train loss : 0.1168, validation loss : 0.1226
+[2/5] Train loss : 0.1353, validation loss : 0.1669
+[3/5] Train loss : 0.1375, validation loss : 0.1884
+[4/5] Train loss : 0.1396, validation loss : 0.1909
+[5/5] Train loss : 0.1403, validation loss : 0.1906
+2022-12-14 22:56:18,845 [DEBUG] [+] Creating Transformer Encoder model
+2022-12-14 22:56:18,849 [DEBUG] [+] Setting sgd optimizer
+2022-12-14 22:56:18,850 [DEBUG] [+] Training model...
+[1/5] Train loss : 0.0564, validation loss : 0.0661
+[2/5] Train loss : 0.0606, validation loss : 0.0663
+[3/5] Train loss : 0.0606, validation loss : 0.0665
+[4/5] Train loss : 0.0604, validation loss : 0.0672
+[5/5] Train loss : 0.0605, validation loss : 0.0667
+2022-12-14 22:56:35,175 [DEBUG] Training from 2008, 2009
+2022-12-14 22:56:35,203 [DEBUG] [+] Setting sgd optimizer
+2022-12-14 22:56:35,204 [DEBUG] [+] Training model...
+[1/5] Train loss : -0.0515, validation loss : 0.0983
+[2/5] Train loss : -0.0515, validation loss : 0.0983
+[3/5] Train loss : -0.0515, validation loss : 0.0983
+[4/5] Train loss : -0.0515, validation loss : 0.0983
+[5/5] Train loss : -0.0515, validation loss : 0.0983
+2022-12-14 22:57:59,355 [DEBUG] [+] Setting sgd optimizer
+2022-12-14 22:57:59,355 [DEBUG] [+] Training model...
+[1/5] Train loss : -0.0515, validation loss : 0.0983
+[2/5] Train loss : -0.0515, validation loss : 0.0983
+[3/5] Train loss : -0.0515, validation loss : 0.0983
+[4/5] Train loss : -0.0515, validation loss : 0.0983
+[5/5] Train loss : -0.0515, validation loss : 0.0983
+2022-12-14 22:58:11,821 [DEBUG] [+] Setting sgd optimizer
+2022-12-14 22:58:11,822 [DEBUG] [+] Training model...
+[1/5] Train loss : 0.0095, validation loss : 0.1217
+[2/5] Train loss : 0.0070, validation loss : 0.1212
+[3/5] Train loss : 0.0054, validation loss : 0.1212
+[4/5] Train loss : 0.0054, validation loss : 0.1213
+[5/5] Train loss : 0.0054, validation loss : 0.1213
+2022-12-14 22:58:56,337 [DEBUG] [+] Setting sgd optimizer
+2022-12-14 22:58:56,337 [DEBUG] [+] Training model...
+[1/5] Train loss : -0.0214, validation loss : 0.1367
+[2/5] Train loss : -0.0189, validation loss : 0.1352
+[3/5] Train loss : -0.0186, validation loss : 0.1348
+[4/5] Train loss : -0.0185, validation loss : 0.1347
+[5/5] Train loss : -0.0225, validation loss : 0.1351
+2022-12-14 23:02:45,992 [DEBUG] [+] Setting sgd optimizer
+2022-12-14 23:02:45,993 [DEBUG] [+] Training model...
+[1/5] Train loss : -0.0154, validation loss : -0.0177
+[2/5] Train loss : -0.0143, validation loss : -0.0171
+[3/5] Train loss : -0.0142, validation loss : -0.0172
+[4/5] Train loss : -0.0142, validation loss : -0.0185
+[5/5] Train loss : -0.0137, validation loss : -0.0177
+2022-12-14 23:03:04,430 [DEBUG] Training from 2010, 2011
+2022-12-14 23:03:04,458 [DEBUG] [+] Setting sgd optimizer
+2022-12-14 23:03:04,459 [DEBUG] [+] Training model...
+[1/5] Train loss : 0.0423, validation loss : -0.0350
+[2/5] Train loss : 0.0423, validation loss : -0.0350
+[3/5] Train loss : 0.0423, validation loss : -0.0350
+[4/5] Train loss : 0.0423, validation loss : -0.0350
+[5/5] Train loss : 0.0423, validation loss : -0.0350
+2022-12-14 23:04:27,976 [DEBUG] [+] Setting sgd optimizer
+2022-12-14 23:04:27,977 [DEBUG] [+] Training model...
+[1/5] Train loss : 0.0423, validation loss : -0.0350
+[2/5] Train loss : 0.0423, validation loss : -0.0350
+[3/5] Train loss : 0.0423, validation loss : -0.0350
+[4/5] Train loss : 0.0423, validation loss : -0.0350
+[5/5] Train loss : 0.0423, validation loss : -0.0350
+2022-12-14 23:04:39,423 [DEBUG] [+] Setting sgd optimizer
+2022-12-14 23:04:39,424 [DEBUG] [+] Training model...
+[1/5] Train loss : 0.0836, validation loss : -0.0130
+[2/5] Train loss : 0.0838, validation loss : -0.0151
+[3/5] Train loss : 0.0839, validation loss : -0.0176
+[4/5] Train loss : 0.0839, validation loss : -0.0180
+[5/5] Train loss : 0.0839, validation loss : -0.0192
+2022-12-14 23:05:21,521 [DEBUG] [+] Setting sgd optimizer
+2022-12-14 23:05:21,521 [DEBUG] [+] Training model...
+[1/5] Train loss : 0.1055, validation loss : 0.0195
+[2/5] Train loss : 0.1271, validation loss : 0.0194
+[3/5] Train loss : 0.1271, validation loss : 0.0199
+[4/5] Train loss : 0.1273, validation loss : 0.0199
+[5/5] Train loss : 0.1273, validation loss : 0.0200
+2022-12-14 23:08:52,539 [DEBUG] [+] Setting sgd optimizer
+2022-12-14 23:08:52,540 [DEBUG] [+] Training model...
+[1/5] Train loss : -0.0004, validation loss : -0.0429
+[2/5] Train loss : 0.0232, validation loss : -0.0359
+[3/5] Train loss : 0.0423, validation loss : -0.0354
+[4/5] Train loss : 0.0418, validation loss : -0.0358
+[5/5] Train loss : 0.0421, validation loss : -0.0350
+2022-12-14 23:09:08,336 [DEBUG] Training from 2012, 2013
+2022-12-14 23:09:08,359 [DEBUG] [+] Setting sgd optimizer
+2022-12-14 23:09:08,360 [DEBUG] [+] Training model...
+[1/5] Train loss : 0.0153, validation loss : 0.0429
+[2/5] Train loss : 0.0153, validation loss : 0.0429
+[3/5] Train loss : 0.0153, validation loss : 0.0429
+[4/5] Train loss : 0.0153, validation loss : 0.0429
+[5/5] Train loss : 0.0153, validation loss : 0.0429
+2022-12-14 23:10:29,446 [DEBUG] [+] Setting sgd optimizer
+2022-12-14 23:10:29,446 [DEBUG] [+] Training model...
+[1/5] Train loss : 0.0153, validation loss : 0.0429
+[2/5] Train loss : 0.0153, validation loss : 0.0429
+[3/5] Train loss : 0.0153, validation loss : 0.0429
+[4/5] Train loss : 0.0153, validation loss : 0.0429
+[5/5] Train loss : 0.0153, validation loss : 0.0429
+2022-12-14 23:10:40,349 [DEBUG] [+] Setting sgd optimizer
+2022-12-14 23:10:40,350 [DEBUG] [+] Training model...
+[1/5] Train loss : 0.0651, validation loss : 0.0876
+[2/5] Train loss : 0.1092, validation loss : 0.0793
+[3/5] Train loss : 0.0915, validation loss : 0.0916
+[4/5] Train loss : 0.0982, validation loss : 0.1004
+[5/5] Train loss : 0.1083, validation loss : 0.1033
+2022-12-14 23:11:20,729 [DEBUG] [+] Setting sgd optimizer
+2022-12-14 23:11:20,730 [DEBUG] [+] Training model...
+[1/5] Train loss : 0.1117, validation loss : 0.1067
+[2/5] Train loss : 0.1120, validation loss : 0.1072
+[3/5] Train loss : 0.1134, validation loss : 0.1088
+[4/5] Train loss : 0.1138, validation loss : 0.1101
+[5/5] Train loss : 0.1140, validation loss : 0.1140
+2022-12-14 23:14:48,216 [DEBUG] [+] Setting sgd optimizer
+2022-12-14 23:14:48,216 [DEBUG] [+] Training model...
+[1/5] Train loss : 0.0148, validation loss : 0.0429
+[2/5] Train loss : 0.0156, validation loss : 0.0430
+[3/5] Train loss : 0.0151, validation loss : 0.0432
+[4/5] Train loss : 0.0154, validation loss : 0.0425
+[5/5] Train loss : 0.0157, validation loss : 0.0429
+2022-12-14 23:15:02,676 [DEBUG] Training from 2014, 2015
+2022-12-14 23:15:02,703 [DEBUG] [+] Setting sgd optimizer
+2022-12-14 23:15:02,703 [DEBUG] [+] Training model...
+[1/5] Train loss : 0.0090, validation loss : -0.0582
+[2/5] Train loss : 0.0090, validation loss : -0.0582
+[3/5] Train loss : 0.0090, validation loss : -0.0582
+[4/5] Train loss : 0.0090, validation loss : -0.0582
+[5/5] Train loss : 0.0090, validation loss : -0.0582
+2022-12-14 23:16:16,354 [DEBUG] [+] Setting sgd optimizer
+2022-12-14 23:16:16,355 [DEBUG] [+] Training model...
+[1/5] Train loss : 0.0090, validation loss : -0.0582
+[2/5] Train loss : 0.0090, validation loss : -0.0582
+[3/5] Train loss : 0.0090, validation loss : -0.0582
+[4/5] Train loss : 0.0090, validation loss : -0.0582
+[5/5] Train loss : 0.0090, validation loss : -0.0582
+2022-12-14 23:16:25,723 [DEBUG] [+] Setting sgd optimizer
+2022-12-14 23:16:25,723 [DEBUG] [+] Training model...
+[1/5] Train loss : 0.0801, validation loss : -0.0411
+[2/5] Train loss : 0.0437, validation loss : -0.0419
+[3/5] Train loss : 0.0458, validation loss : -0.0424
+[4/5] Train loss : 0.0474, validation loss : -0.0428
+[5/5] Train loss : 0.0472, validation loss : -0.0434
+2022-12-14 23:16:59,580 [DEBUG] [+] Setting sgd optimizer
+2022-12-14 23:16:59,580 [DEBUG] [+] Training model...
+[1/5] Train loss : 0.0779, validation loss : -0.0434
+[2/5] Train loss : 0.0465, validation loss : -0.0446
+[3/5] Train loss : 0.0472, validation loss : -0.0457
+[4/5] Train loss : 0.0478, validation loss : -0.0466
+[5/5] Train loss : 0.0483, validation loss : -0.0475
+2022-12-14 23:20:02,361 [DEBUG] [+] Setting sgd optimizer
+2022-12-14 23:20:02,362 [DEBUG] [+] Training model...
+[1/5] Train loss : 0.0091, validation loss : -0.0581
+[2/5] Train loss : 0.0091, validation loss : -0.0585
+[3/5] Train loss : 0.0092, validation loss : -0.0582
+[4/5] Train loss : 0.0091, validation loss : -0.0582
+[5/5] Train loss : 0.0091, validation loss : -0.0581
+2022-12-14 23:20:17,572 [DEBUG] Training from 2016, 2017
+2022-12-14 23:20:17,594 [DEBUG] [+] Setting sgd optimizer
+2022-12-14 23:20:17,594 [DEBUG] [+] Training model...
+[1/5] Train loss : 0.0106, validation loss : 0.0688
+[2/5] Train loss : 0.0106, validation loss : 0.0688
+[3/5] Train loss : 0.0106, validation loss : 0.0688
+[4/5] Train loss : 0.0106, validation loss : 0.0688
+[5/5] Train loss : 0.0106, validation loss : 0.0688
+2022-12-14 23:21:32,857 [DEBUG] [+] Setting sgd optimizer
+2022-12-14 23:21:32,858 [DEBUG] [+] Training model...
+[1/5] Train loss : 0.0106, validation loss : 0.0688
+[2/5] Train loss : 0.0106, validation loss : 0.0688
+[3/5] Train loss : 0.0106, validation loss : 0.0688
+[4/5] Train loss : 0.0106, validation loss : 0.0688
+[5/5] Train loss : 0.0106, validation loss : 0.0688
+2022-12-14 23:21:42,735 [DEBUG] [+] Setting sgd optimizer
+2022-12-14 23:21:42,736 [DEBUG] [+] Training model...
+[1/5] Train loss : 0.0568, validation loss : 0.3285
+[2/5] Train loss : 0.0799, validation loss : 0.3360
+[3/5] Train loss : 0.0817, validation loss : 0.3408
+[4/5] Train loss : 0.0831, validation loss : 0.3452
+[5/5] Train loss : 0.0845, validation loss : 0.3484
+2022-12-14 23:22:20,542 [DEBUG] [+] Setting sgd optimizer
+2022-12-14 23:22:20,543 [DEBUG] [+] Training model...
+[1/5] Train loss : 0.0611, validation loss : 0.3451
+[2/5] Train loss : 0.0856, validation loss : 0.3496
+[3/5] Train loss : 0.0867, validation loss : 0.3518
+[4/5] Train loss : 0.0875, validation loss : 0.3537
+[5/5] Train loss : 0.0883, validation loss : 0.3550
+2022-12-14 23:25:23,032 [DEBUG] [+] Setting sgd optimizer
+2022-12-14 23:25:23,032 [DEBUG] [+] Training model...
+[1/5] Train loss : 0.0107, validation loss : 0.0689
+[2/5] Train loss : 0.0107, validation loss : 0.0689
+[3/5] Train loss : 0.0107, validation loss : 0.0688
+[4/5] Train loss : 0.0109, validation loss : 0.0693
+[5/5] Train loss : 0.0108, validation loss : 0.0690
+2022-12-14 23:25:35,444 [DEBUG] Training from 2018, 2019
+2022-12-14 23:25:35,466 [DEBUG] [+] Setting sgd optimizer
+2022-12-14 23:25:35,466 [DEBUG] [+] Training model...
+[1/5] Train loss : 0.0201, validation loss : -0.0108
+[2/5] Train loss : 0.0201, validation loss : -0.0108
+[3/5] Train loss : 0.0201, validation loss : -0.0108
+[4/5] Train loss : 0.0201, validation loss : -0.0108
+[5/5] Train loss : 0.0201, validation loss : -0.0108
+2022-12-14 23:26:41,191 [DEBUG] [+] Setting sgd optimizer
+2022-12-14 23:26:41,192 [DEBUG] [+] Training model...
+[1/5] Train loss : 0.0201, validation loss : -0.0108
+[2/5] Train loss : 0.0201, validation loss : -0.0108
+[3/5] Train loss : 0.0201, validation loss : -0.0108
+[4/5] Train loss : 0.0201, validation loss : -0.0108
+[5/5] Train loss : 0.0201, validation loss : -0.0108
+2022-12-14 23:26:50,309 [DEBUG] [+] Setting sgd optimizer
+2022-12-14 23:26:50,309 [DEBUG] [+] Training model...
+[1/5] Train loss : 0.0619, validation loss : -0.0205
+[2/5] Train loss : 0.0508, validation loss : -0.0270
+[3/5] Train loss : 0.0416, validation loss : -0.0230
+[4/5] Train loss : 0.0452, validation loss : -0.0156
+[5/5] Train loss : 0.0505, validation loss : -0.0090
+2022-12-14 23:27:24,120 [DEBUG] [+] Setting sgd optimizer
+2022-12-14 23:27:24,120 [DEBUG] [+] Training model...
+[1/5] Train loss : 0.0682, validation loss : 0.0047
+[2/5] Train loss : 0.0525, validation loss : 0.0107
+[3/5] Train loss : 0.0508, validation loss : 0.0127
+[4/5] Train loss : 0.0482, validation loss : 0.0175
+[5/5] Train loss : 0.0462, validation loss : 0.0295
+2022-12-14 23:30:16,709 [DEBUG] [+] Setting sgd optimizer
+2022-12-14 23:30:16,710 [DEBUG] [+] Training model...
+[1/5] Train loss : 0.0201, validation loss : -0.0105
+[2/5] Train loss : 0.0202, validation loss : -0.0106
+[3/5] Train loss : 0.0202, validation loss : -0.0107
+[4/5] Train loss : 0.0202, validation loss : -0.0106
+[5/5] Train loss : 0.0202, validation loss : -0.0106
+2022-12-14 23:30:29,036 [DEBUG] Training from 2020, 2021
+2022-12-14 23:30:29,057 [DEBUG] [+] Setting sgd optimizer
+2022-12-14 23:30:29,058 [DEBUG] [+] Training model...
+[1/5] Train loss : 0.0758, validation loss : 0.0579
+[2/5] Train loss : 0.0758, validation loss : 0.0579
+[3/5] Train loss : 0.0758, validation loss : 0.0579
+[4/5] Train loss : 0.0758, validation loss : 0.0579
+[5/5] Train loss : 0.0758, validation loss : 0.0579
+2022-12-14 23:31:34,848 [DEBUG] [+] Setting sgd optimizer
+2022-12-14 23:31:34,848 [DEBUG] [+] Training model...
+[1/5] Train loss : 0.0758, validation loss : 0.0579
+[2/5] Train loss : 0.0758, validation loss : 0.0579
+[3/5] Train loss : 0.0758, validation loss : 0.0579
+[4/5] Train loss : 0.0758, validation loss : 0.0579
+[5/5] Train loss : 0.0758, validation loss : 0.0579
+2022-12-14 23:31:43,784 [DEBUG] [+] Setting sgd optimizer
+2022-12-14 23:31:43,784 [DEBUG] [+] Training model...
+[1/5] Train loss : 0.0971, validation loss : 0.1496
+[2/5] Train loss : 0.0896, validation loss : 0.1704
+[3/5] Train loss : 0.1289, validation loss : 0.1426
+[4/5] Train loss : 0.0176, validation loss : 0.0239
+[5/5] Train loss : 0.0145, validation loss : 0.1064
+2022-12-14 23:32:18,129 [DEBUG] [+] Setting sgd optimizer
+2022-12-14 23:32:18,129 [DEBUG] [+] Training model...
+[1/5] Train loss : 0.1927, validation loss : 0.1693
+[2/5] Train loss : 0.1903, validation loss : 0.1685
+[3/5] Train loss : 0.2033, validation loss : 0.1683
+[4/5] Train loss : 0.2052, validation loss : 0.1680
+[5/5] Train loss : 0.2055, validation loss : 0.1677
+2022-12-14 23:35:11,213 [DEBUG] [+] Setting sgd optimizer
+2022-12-14 23:35:11,213 [DEBUG] [+] Training model...
+[1/5] Train loss : 0.0760, validation loss : 0.0580
+[2/5] Train loss : 0.0759, validation loss : 0.0580
+[3/5] Train loss : 0.0759, validation loss : 0.0579
+[4/5] Train loss : 0.0758, validation loss : 0.0580
+[5/5] Train loss : 0.0758, validation loss : 0.0580
+2022-12-14 23:35:23,421 [DEBUG] Backtesting strategies
+2022-12-14 23:35:23,431 [DEBUG] First year: 2008
+2022-12-14 23:35:23,445 [DEBUG] First year: 2008
+2022-12-14 23:35:23,448 [DEBUG] First year: 2008
+2022-12-14 23:35:23,454 [DEBUG] First year: 2008
+2022-12-14 23:35:23,482 [DEBUG] First year: 2008
+2022-12-14 23:35:35,802 [DEBUG] Changing year: 2009
+2022-12-14 23:35:35,815 [DEBUG] Changing year: 2009
+2022-12-14 23:35:35,818 [DEBUG] Changing year: 2009
+2022-12-14 23:35:35,824 [DEBUG] Changing year: 2009
+2022-12-14 23:35:35,855 [DEBUG] Changing year: 2009
+2022-12-14 23:35:51,244 [DEBUG] Changing year: 2010
+2022-12-14 23:35:51,245 [DEBUG] Changing model: lstm - 0
+2022-12-14 23:35:51,256 [DEBUG] Changing year: 2010
+2022-12-14 23:35:51,256 [DEBUG] Changing model: tcn - 0
+2022-12-14 23:35:51,259 [DEBUG] Changing year: 2010
+2022-12-14 23:35:51,260 [DEBUG] Changing model: rnn - 0
+2022-12-14 23:35:51,265 [DEBUG] Changing year: 2010
+2022-12-14 23:35:51,265 [DEBUG] Changing model: gru - 0
+2022-12-14 23:35:51,295 [DEBUG] Changing year: 2010
+2022-12-14 23:35:51,297 [DEBUG] Changing model: transformer - 0
+2022-12-14 23:36:07,101 [DEBUG] Changing year: 2011
+2022-12-14 23:36:07,113 [DEBUG] Changing year: 2011
+2022-12-14 23:36:07,117 [DEBUG] Changing year: 2011
+2022-12-14 23:36:07,122 [DEBUG] Changing year: 2011
+2022-12-14 23:36:07,152 [DEBUG] Changing year: 2011
+2022-12-14 23:36:26,302 [DEBUG] Changing year: 2012
+2022-12-14 23:36:26,302 [DEBUG] Changing model: lstm - 1
+2022-12-14 23:36:26,320 [DEBUG] Changing year: 2012
+2022-12-14 23:36:26,321 [DEBUG] Changing model: tcn - 1
+2022-12-14 23:36:26,324 [DEBUG] Changing year: 2012
+2022-12-14 23:36:26,324 [DEBUG] Changing model: rnn - 1
+2022-12-14 23:36:26,330 [DEBUG] Changing year: 2012
+2022-12-14 23:36:26,330 [DEBUG] Changing model: gru - 1
+2022-12-14 23:36:26,363 [DEBUG] Changing year: 2012
+2022-12-14 23:36:26,365 [DEBUG] Changing model: transformer - 1
+2022-12-14 23:36:47,400 [DEBUG] Changing year: 2013
+2022-12-14 23:36:47,416 [DEBUG] Changing year: 2013
+2022-12-14 23:36:47,420 [DEBUG] Changing year: 2013
+2022-12-14 23:36:47,426 [DEBUG] Changing year: 2013
+2022-12-14 23:36:47,474 [DEBUG] Changing year: 2013
+2022-12-14 23:37:08,131 [DEBUG] Changing year: 2014
+2022-12-14 23:37:08,131 [DEBUG] Changing model: lstm - 2
+2022-12-14 23:37:08,150 [DEBUG] Changing year: 2014
+2022-12-14 23:37:08,151 [DEBUG] Changing model: tcn - 2
+2022-12-14 23:37:08,155 [DEBUG] Changing year: 2014
+2022-12-14 23:37:08,156 [DEBUG] Changing model: rnn - 2
+2022-12-14 23:37:08,171 [DEBUG] Changing year: 2014
+2022-12-14 23:37:08,172 [DEBUG] Changing model: gru - 2
+2022-12-14 23:37:08,237 [DEBUG] Changing year: 2014
+2022-12-14 23:37:08,246 [DEBUG] Changing model: transformer - 2
+2022-12-14 23:37:30,979 [DEBUG] Changing year: 2015
+2022-12-14 23:37:31,003 [DEBUG] Changing year: 2015
+2022-12-14 23:37:31,008 [DEBUG] Changing year: 2015
+2022-12-14 23:37:31,020 [DEBUG] Changing year: 2015
+2022-12-14 23:37:31,074 [DEBUG] Changing year: 2015
+2022-12-14 23:37:54,247 [DEBUG] Changing year: 2016
+2022-12-14 23:37:54,248 [DEBUG] Changing model: lstm - 3
+2022-12-14 23:37:54,260 [DEBUG] Changing year: 2016
+2022-12-14 23:37:54,261 [DEBUG] Changing model: tcn - 3
+2022-12-14 23:37:54,264 [DEBUG] Changing year: 2016
+2022-12-14 23:37:54,264 [DEBUG] Changing model: rnn - 3
+2022-12-14 23:37:54,272 [DEBUG] Changing year: 2016
+2022-12-14 23:37:54,272 [DEBUG] Changing model: gru - 3
+2022-12-14 23:37:54,307 [DEBUG] Changing year: 2016
+2022-12-14 23:37:54,310 [DEBUG] Changing model: transformer - 3
+2022-12-14 23:38:15,298 [DEBUG] Changing year: 2017
+2022-12-14 23:38:15,313 [DEBUG] Changing year: 2017
+2022-12-14 23:38:15,319 [DEBUG] Changing year: 2017
+2022-12-14 23:38:15,327 [DEBUG] Changing year: 2017
+2022-12-14 23:38:15,367 [DEBUG] Changing year: 2017
+2022-12-14 23:38:35,901 [DEBUG] Changing year: 2018
+2022-12-14 23:38:35,901 [DEBUG] Changing model: lstm - 4
+2022-12-14 23:38:35,914 [DEBUG] Changing year: 2018
+2022-12-14 23:38:35,915 [DEBUG] Changing model: tcn - 4
+2022-12-14 23:38:35,921 [DEBUG] Changing year: 2018
+2022-12-14 23:38:35,921 [DEBUG] Changing model: rnn - 4
+2022-12-14 23:38:35,928 [DEBUG] Changing year: 2018
+2022-12-14 23:38:35,928 [DEBUG] Changing model: gru - 4
+2022-12-14 23:38:35,968 [DEBUG] Changing year: 2018
+2022-12-14 23:38:35,970 [DEBUG] Changing model: transformer - 4
+2022-12-14 23:38:56,885 [DEBUG] Changing year: 2019
+2022-12-14 23:38:56,902 [DEBUG] Changing year: 2019
+2022-12-14 23:38:56,906 [DEBUG] Changing year: 2019
+2022-12-14 23:38:56,918 [DEBUG] Changing year: 2019
+2022-12-14 23:38:56,967 [DEBUG] Changing year: 2019
+2022-12-14 23:39:18,068 [DEBUG] Changing year: 2020
+2022-12-14 23:39:18,068 [DEBUG] Changing model: lstm - 5
+2022-12-14 23:39:18,084 [DEBUG] Changing year: 2020
+2022-12-14 23:39:18,085 [DEBUG] Changing model: tcn - 5
+2022-12-14 23:39:18,089 [DEBUG] Changing year: 2020
+2022-12-14 23:39:18,089 [DEBUG] Changing model: rnn - 5
+2022-12-14 23:39:18,096 [DEBUG] Changing year: 2020
+2022-12-14 23:39:18,097 [DEBUG] Changing model: gru - 5
+2022-12-14 23:39:18,138 [DEBUG] Changing year: 2020
+2022-12-14 23:39:18,140 [DEBUG] Changing model: transformer - 5
+2022-12-14 23:39:39,651 [DEBUG] Changing year: 2021
+2022-12-14 23:39:39,668 [DEBUG] Changing year: 2021
+2022-12-14 23:39:39,672 [DEBUG] Changing year: 2021
+2022-12-14 23:39:39,682 [DEBUG] Changing year: 2021
+2022-12-14 23:39:39,731 [DEBUG] Changing year: 2021
+2022-12-14 23:40:01,144 [DEBUG] Changing year: 2022
+2022-12-14 23:40:01,144 [DEBUG] Changing model: lstm - 6
+2022-12-14 23:40:01,162 [DEBUG] Changing year: 2022
+2022-12-14 23:40:01,163 [DEBUG] Changing model: tcn - 6
+2022-12-14 23:40:01,166 [DEBUG] Changing year: 2022
+2022-12-14 23:40:01,166 [DEBUG] Changing model: rnn - 6
+2022-12-14 23:40:01,174 [DEBUG] Changing year: 2022
+2022-12-14 23:40:01,176 [DEBUG] Changing model: gru - 6
+2022-12-14 23:40:01,223 [DEBUG] Changing year: 2022
+2022-12-14 23:40:01,227 [DEBUG] Changing model: transformer - 6
+2022-12-14 23:40:16,993 [DEBUG] Backtesting results
+2022-12-14 23:40:16,993 [DEBUG] ---------------------------------
+2022-12-14 23:40:16,993 [DEBUG] Results of strategy: random
+2022-12-14 23:40:16,994 [DEBUG] Expected returns: 15.546597933553894%
+2022-12-14 23:40:16,994 [DEBUG] Volatilty: 37.84531077106112%
+2022-12-14 23:40:16,994 [DEBUG] Sharpe Ratio: 0.4107932427243216
+2022-12-14 23:40:16,995 [DEBUG] MDD: -1.346786891152666
+2022-12-14 23:40:16,995 [DEBUG] ---------------------------------
+2022-12-14 23:40:16,995 [DEBUG] Results of strategy: equal strategy
+2022-12-14 23:40:16,996 [DEBUG] Expected returns: 19.099810829319914%
+2022-12-14 23:40:16,996 [DEBUG] Volatilty: 27.671778722561047%
+2022-12-14 23:40:16,996 [DEBUG] Sharpe Ratio: 0.6902270728895237
+2022-12-14 23:40:16,997 [DEBUG] MDD: -1.2121061373370512
+2022-12-14 23:40:16,997 [DEBUG] ---------------------------------
+2022-12-14 23:40:16,997 [DEBUG] Results of strategy: lstm
+2022-12-14 23:40:16,999 [DEBUG] Expected returns: 17.835424325225727%
+2022-12-14 23:40:16,999 [DEBUG] Volatilty: 15.711628499547178%
+2022-12-14 23:40:16,999 [DEBUG] Sharpe Ratio: 1.1351735006807064
+2022-12-14 23:40:17,000 [DEBUG] MDD: -1.2536962604713813
+2022-12-14 23:40:17,000 [DEBUG] ---------------------------------
+2022-12-14 23:40:17,000 [DEBUG] Results of strategy: tcn
+2022-12-14 23:40:17,001 [DEBUG] Expected returns: 17.835423714664984%
+2022-12-14 23:40:17,001 [DEBUG] Volatilty: 15.711628275360276%
+2022-12-14 23:40:17,001 [DEBUG] Sharpe Ratio: 1.1351734780178924
+2022-12-14 23:40:17,002 [DEBUG] MDD: -1.2536962900963369
+2022-12-14 23:40:17,002 [DEBUG] ---------------------------------
+2022-12-14 23:40:17,002 [DEBUG] Results of strategy: rnn
+2022-12-14 23:40:17,003 [DEBUG] Expected returns: 13.55460893953131%
+2022-12-14 23:40:17,004 [DEBUG] Volatilty: 14.206052064150285%
+2022-12-14 23:40:17,004 [DEBUG] Sharpe Ratio: 0.9541432678356202
+2022-12-14 23:40:17,004 [DEBUG] MDD: -1.292090906727535
+2022-12-14 23:40:17,004 [DEBUG] ---------------------------------
+2022-12-14 23:40:17,004 [DEBUG] Results of strategy: gru
+2022-12-14 23:40:17,005 [DEBUG] Expected returns: 7.814531762269988%
+2022-12-14 23:40:17,005 [DEBUG] Volatilty: 8.070259888631409%
+2022-12-14 23:40:17,005 [DEBUG] Sharpe Ratio: 0.9683122811544563
+2022-12-14 23:40:17,006 [DEBUG] MDD: -1.7342266665024373
+2022-12-14 23:40:17,006 [DEBUG] ---------------------------------
+2022-12-14 23:40:17,006 [DEBUG] Results of strategy: transformer
+2022-12-14 23:40:17,007 [DEBUG] Expected returns: 18.08012193749676%
+2022-12-14 23:40:17,008 [DEBUG] Volatilty: 15.732570675363805%
+2022-12-14 23:40:17,008 [DEBUG] Sharpe Ratio: 1.14921599976087
+2022-12-14 23:40:17,009 [DEBUG] MDD: -1.2536962604713813
+2022-12-14 23:40:17,160 [DEBUG] Saving results
+2022-12-14 23:40:17,550 [DEBUG] STREAM b'IHDR' 16 13
+2022-12-14 23:40:17,550 [DEBUG] STREAM b'sBIT' 41 4
+2022-12-14 23:40:17,550 [DEBUG] b'sBIT' 41 4 (unknown)
+2022-12-14 23:40:17,550 [DEBUG] STREAM b'pHYs' 57 9
+2022-12-14 23:40:17,551 [DEBUG] STREAM b'IDAT' 78 1189
+2022-12-14 23:40:17,555 [DEBUG] STREAM b'IHDR' 16 13
+2022-12-14 23:40:17,556 [DEBUG] STREAM b'sBIT' 41 4
+2022-12-14 23:40:17,556 [DEBUG] b'sBIT' 41 4 (unknown)
+2022-12-14 23:40:17,556 [DEBUG] STREAM b'pHYs' 57 9
+2022-12-14 23:40:17,556 [DEBUG] STREAM b'IDAT' 78 2994
+2022-12-14 23:40:17,607 [DEBUG] STREAM b'IHDR' 16 13
+2022-12-14 23:40:17,607 [DEBUG] STREAM b'sBIT' 41 4
+2022-12-14 23:40:17,607 [DEBUG] b'sBIT' 41 4 (unknown)
+2022-12-14 23:40:17,607 [DEBUG] STREAM b'pHYs' 57 9
+2022-12-14 23:40:17,607 [DEBUG] STREAM b'IDAT' 78 374
+2022-12-14 23:40:17,610 [DEBUG] STREAM b'IHDR' 16 13
+2022-12-14 23:40:17,610 [DEBUG] STREAM b'sBIT' 41 4
+2022-12-14 23:40:17,610 [DEBUG] b'sBIT' 41 4 (unknown)
+2022-12-14 23:40:17,610 [DEBUG] STREAM b'pHYs' 57 9
+2022-12-14 23:40:17,610 [DEBUG] STREAM b'IDAT' 78 286
+2022-12-14 23:40:17,613 [DEBUG] STREAM b'IHDR' 16 13
+2022-12-14 23:40:17,614 [DEBUG] STREAM b'sBIT' 41 4
+2022-12-14 23:40:17,614 [DEBUG] b'sBIT' 41 4 (unknown)
+2022-12-14 23:40:17,614 [DEBUG] STREAM b'pHYs' 57 9
+2022-12-14 23:40:17,615 [DEBUG] STREAM b'IDAT' 78 263
+2022-12-14 23:40:17,617 [DEBUG] STREAM b'IHDR' 16 13
+2022-12-14 23:40:17,617 [DEBUG] STREAM b'sBIT' 41 4
+2022-12-14 23:40:17,617 [DEBUG] b'sBIT' 41 4 (unknown)
+2022-12-14 23:40:17,617 [DEBUG] STREAM b'pHYs' 57 9
+2022-12-14 23:40:17,617 [DEBUG] STREAM b'IDAT' 78 387
+2022-12-14 23:40:17,619 [DEBUG] STREAM b'IHDR' 16 13
+2022-12-14 23:40:17,619 [DEBUG] STREAM b'sBIT' 41 4
+2022-12-14 23:40:17,619 [DEBUG] b'sBIT' 41 4 (unknown)
+2022-12-14 23:40:17,619 [DEBUG] STREAM b'pHYs' 57 9
+2022-12-14 23:40:17,619 [DEBUG] STREAM b'IDAT' 78 436
+2022-12-14 23:40:17,621 [DEBUG] STREAM b'IHDR' 16 13
+2022-12-14 23:40:17,621 [DEBUG] STREAM b'sBIT' 41 4
+2022-12-14 23:40:17,621 [DEBUG] b'sBIT' 41 4 (unknown)
+2022-12-14 23:40:17,621 [DEBUG] STREAM b'pHYs' 57 9
+2022-12-14 23:40:17,621 [DEBUG] STREAM b'IDAT' 78 351
+2022-12-14 23:40:17,623 [DEBUG] STREAM b'IHDR' 16 13
+2022-12-14 23:40:17,623 [DEBUG] STREAM b'sBIT' 41 4
+2022-12-14 23:40:17,624 [DEBUG] b'sBIT' 41 4 (unknown)
+2022-12-14 23:40:17,624 [DEBUG] STREAM b'pHYs' 57 9
+2022-12-14 23:40:17,624 [DEBUG] STREAM b'IDAT' 78 364
+2022-12-14 23:40:18,389 [DEBUG] Saving models

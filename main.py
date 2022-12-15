@@ -56,9 +56,13 @@ if __name__ == "__main__":
     parser = argparse.ArgumentParser(
         description="Dataloader options, if no argument given config.json will be used"
     )
+    parser.add_argument('-c', '--config', help="Config File")
+    parser.add_argument('-m', '--modelconfig', help="Model Config File")
     parser.add_argument('-n', '--name', help="Name of the model")
+    parser.add_argument('-a', '--auto-tickers', help="Using tickers from Sentiment Analysis (Max 20)")
+    parser.add_argument('-z', '--number-of-tickers', help="Number of tickers selected from Sentiment Analysis (Max 20), Default: 5", default='5')
     parser.add_argument('-t', '--tickers', nargs='+',
-                        help="Tickers to retrieve")
+                        help="Tickers to retrieve (will override auto-tickers)")
     parser.add_argument('-s', '--start', help="Start date : YYYY-MM-DD")
     parser.add_argument('-e', '--end', help="End date : YYYY-MM-DD")
     parser.add_argument('-i', '--interval',
@@ -76,6 +80,8 @@ if __name__ == "__main__":
     # check for args
     if (args.tickers and args.start and args.end):
         config['tickers'] = ' '.join(args.tickers)
+
+    if (args.start and args.end):
         config['start_date'] = args.start
         config['end_date'] = args.end
         config['interval'] = args.interval
@@ -85,9 +91,12 @@ if __name__ == "__main__":
 
     # use file configuration
     else:
-        logging.debug(f"No arguments given, use config.json...")
+        file_config = 'config.json'
+        if args.config:
+            file_config = args.config
+        logging.debug(f"use config:" + file_config)
         try:
-            with open('config.json', 'r') as fd:
+            with open(file_config, 'r') as fd:
                 config = json.load(fd)
         except Exception as e:
             logging.error(f"An error occured while reading the file")
