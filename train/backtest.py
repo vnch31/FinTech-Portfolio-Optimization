@@ -6,7 +6,7 @@ import numpy as np
 import matplotlib.pyplot as plt
 
 from train.strategy import Strategy, DeepLearningStrategy
-from train.strategies import RandomStrategy, Allocation1Strategy
+from train.strategies import RandomStrategy, EqualWeightPortfolio
 
 # logging configuration
 logging.basicConfig(
@@ -38,17 +38,17 @@ class Backtest():
         self._create_strategies()
 
     def _reshape_dataset(self, data: pd.DataFrame, train_step: int):
-        years = data.Date.dt.year.unique()
+        years = data.index.year.unique()
         first_train_year = years[train_step-1]
-        data['year'] = pd.to_datetime(data["Date"], "%Y")
-        return data.loc[data["year"].dt.year > first_train_year]
+        data['year'] = data.index.year
+        return data.loc[data["year"] > first_train_year]
 
     def _create_strategies(self):
         # hard code strategy for now
         # basic strategies
         # self.strategies.append(RandomStrategy('random', self.tickers))
-        self.strategies.append(Allocation1Strategy(
-            'equal strategy', self.tickers))
+        self.strategies.append(EqualWeightPortfolio(
+            'Equal Weight Portfolio', self.tickers))
 
         # add deep learning strategies
         for m_name, m_list in self.models.items():
@@ -56,18 +56,32 @@ class Backtest():
                 name=m_name, tickers=self.tickers, models=m_list, train_step=self.train_step)
             self.strategies.append(dl_strat)
 
+    def _preprocess_comparison(self, df):
+        # compute log returns 
+        df['Return'] = df['Close'].pct_change()
+        df['Log_return'] = np.log1p(df['Return'])
+
+        # remove first training years
+        df.index = pd.to_datetime(df.index, utc=True)
+        df = self._reshape_dataset(df, self.train_step)
+
+        # compute cumulative returns
+        df['cum_return'] = df['Log_return'].cumsum()
+
+        return df
+
     def _to_df(self, name, input_dict):
         res = pd.DataFrame(list(input_dict.items()), columns=["Date", name])
-        res["Date"] = pd.to_datetime(res["Date"])
-        res.index = pd.DatetimeIndex(res["Date"])
-        res = res.drop("Date", axis=1)
+        res["Date"] = res['Date'].dt.date
+        res.index = res["Date"]
+        res.drop(["Date"], axis=1,inplace=True)
         return res
 
     def _plot_curve(self, results):
         results.plot()
         plt.show()
 
-    def run(self, timestep=50, plot=False):
+    def run(self, comparison_index: pd.DataFrame, timestep=50, plot=False):
         """
         Loop through all the data and give it to the strategy
         """
@@ -89,6 +103,27 @@ class Backtest():
         logging.debug("Backtesting results")
         results = {}
         return_results = []
+
+        # comparison index
+        comparison_results = self._preprocess_comparison(comparison_index)
+        index_name = 'S&P500'
+        logging.debug("---------------------------------")
+        logging.debug(f"Results of : {index_name}")
+        expected_return = np.array(comparison_results["Log_return"]).mean()*252
+        volatility = np.array(comparison_results["Log_return"]).std()*np.sqrt(252)
+        logging.debug(f"Expected returns: {expected_return*100}%")
+        logging.debug(f"Volatilty: {volatility*100}%")
+        logging.debug(f"Sharpe Ratio: {expected_return/volatility}")
+        results[index_name] = {
+                'expected_return': expected_return,
+                'volatility': volatility,
+                'sharpe_ratio': (expected_return/volatility)
+        }
+        # compute cum sum
+        # save return results
+        return_results.append((index_name, dict(zip(comparison_results.index, comparison_results.cum_return))))
+
+        # strategies results
         for strategy in self.strategies:
             logging.debug("---------------------------------")
             logging.debug(f"Results of strategy: {strategy.name}")
@@ -109,6 +144,7 @@ class Backtest():
 
         return_results = [self._to_df(res[0], res[1]) for res in return_results]
         df_results = pd.concat(return_results, axis=1)
+        df_results.dropna(inplace=True)
         
         if plot:
             self._plot_curve(df_results)

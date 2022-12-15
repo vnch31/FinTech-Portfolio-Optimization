@@ -6,6 +6,6 @@ class RandomStrategy(Strategy):
     def _compute_weights(self, data):
         return np.random.dirichlet(np.ones(len(self.tickers)), size=1)[0]
 
-class Allocation1Strategy(Strategy):
+class EqualWeightPortfolio(Strategy):
     def _compute_weights(self, data):
         return np.full(len(self.tickers), (1/len(self.tickers)))

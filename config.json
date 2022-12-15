@@ -1,8 +1,8 @@
 {
-    "name": "test_tcn_2",
-    "tickers": "VTI AGG DBC ^VIX",
-    "start_date": "2006-01-01",
-    "end_date": "2022-10-01",
+    "name": "lstm_3",
+    "tickers": "VTI AGG DBC ^VIX ^GSPC",
+    "start_date": "2010-01-01",
+    "end_date": "2020-05-01",
     "interval": "1d",
     "timestep": 50,
     "train": 2,

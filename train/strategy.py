@@ -38,9 +38,8 @@ class Strategy():
             ret = w * data[i]["Return"].iloc[-1]
             daily_returns.append(ret)
         # log returns
-        #print(f"{self.name}: {daily_returns}")
         log_return = np.log(1+np.sum(daily_returns))
-        #print(f"{self.name}: {log_return}")
+        
         return log_return
 
     def _compute_weights(self, data):
@@ -57,12 +56,12 @@ class Strategy():
         daily_return = self._compute_returns(daily_allocations, data)
 
         # save returns of the day
-        self.allocations[data[0]["Date"].iloc[-1]] = daily_allocations
-        self.daily_returns[data[0]["Date"].iloc[-1]] = daily_return
+        self.allocations[data[0].index[-1]] = daily_allocations
+        self.daily_returns[data[0].index[-1]] = daily_return
 
         # cumulative returns
         self.last_return += daily_return
-        self.cum_returns[data[0]["Date"].iloc[-1]] = self.last_return
+        self.cum_returns[data[0].index[-1]] = self.last_return
 
 
 class DeepLearningStrategy(Strategy):
@@ -82,7 +81,7 @@ class DeepLearningStrategy(Strategy):
 
     def _compute_weights(self, data):
         # actual year
-        year = data[0]["Date"].iloc[-1].year
+        year = data[0].index[-1].year
 
         # first pass
         if self.current_year is None:

@@ -38,6 +38,13 @@ retrain every {train} year with {timestep} days
     filename = f"dataset_{start_date}_{end_date}_{tickers.replace(' ', '_')}.csv"
     df = dataloader.get_data_yfinance(tickers=tickers, start_date=start_date, end_date=end_date, interval=interval)
 
+    # extract sp500
+    if '^GSPC' in tickers.split(' '):
+        df_sp500 = df.copy()[df['Ticker'] == '^GSPC']
+        df = df[df['Ticker'] != '^GSPC']
+
+        logging.debug(df)
+
     # setting training device 
     device = 'cpu'
 
@@ -48,7 +55,7 @@ retrain every {train} year with {timestep} days
 
     trainer = Trainer(name=name, dataset_name=filename, data=df, train_step=train, timestep=timestep, batch_size=batch_size)
 
-    trainer.run(models=['tcn'])
+    trainer.run(models=['lstm'], comparison_index=df_sp500)
 
 
 if __name__ == "__main__":

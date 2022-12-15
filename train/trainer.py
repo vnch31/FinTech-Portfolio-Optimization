@@ -72,10 +72,8 @@ class Trainer():
         # remove NaN values
         self.data = self.data.dropna()
 
-        # convert date to datetime
-        self.data['Date'] = pd.to_datetime(self.data['Date'])
         # define all years
-        self.years = self.data.Date.dt.year.unique()
+        self.years = self.data.index.year.unique()
 
         # split dataset by year
         self.train_dataset = self._split_years(self.data.copy())
@@ -87,7 +85,7 @@ class Trainer():
     def _create_dataset(self, df: pd.DataFrame, feature_name):
         # TODO: add more features, only 1 feature now
         # get all dates
-        dates = df['Date'].unique()
+        dates = df.index.unique()
 
         # create numpy array
         dataset = np.zeros([len(dates), len(self.tickers), 1])
@@ -95,7 +93,7 @@ class Trainer():
         # use apply or other method (faster than iterrows)
         for _, row in df.iterrows():
             # get index corresponding to date
-            index_date = np.where(dates == row.Date)[0][0]
+            index_date = np.where(dates == row.name)[0][0]
 
             # get index corresponding to ticker
             index_ticker = np.where(self.tickers == row.Ticker)[0][0]
@@ -110,7 +108,7 @@ class Trainer():
         return dataset
 
     def _split_years(self, dt):
-        dt['year'] = dt['Date'].dt.year
+        dt['year'] = dt.index.year
         return [dt[dt['year'] == y] for y in dt['year'].unique()]
 
     def _split_train_valid(self, dataset, train=0.8):
@@ -307,7 +305,7 @@ class Trainer():
 
         return model, opti
 
-    def run(self, models: list):
+    def run(self, models: list, comparison_index: pd.DataFrame):
         # create dictionnary of models
         all_models = {}
 
@@ -364,7 +362,7 @@ class Trainer():
 
         # ---- Test -----
         backtest = Backtest(self.data.copy(), all_models, self.tickers, self.train_step)
-        df_results, results = backtest.run(self.timestep)
+        df_results, results = backtest.run(timestep=self.timestep, comparison_index=comparison_index)
 
         # ----- Save -----
         self._save(models=all_models, df_results=df_results, results=results)
