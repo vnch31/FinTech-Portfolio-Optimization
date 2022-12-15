@@ -56,7 +56,7 @@ def sharpe_ratio_loss_github(weights, y, device='cpu'):
     )
     
     # derive sharpe ratio
-    #sharpe_ratio = (portfolio_returns * 252) / (torch.sqrt(portfolio_vol * 252))
-    sharpe_ratio = portfolio_returns / torch.sqrt(portfolio_vol)
+    sharpe_ratio = (portfolio_returns * 252 - 0.02) / (torch.sqrt(portfolio_vol * 252))
+    #sharpe_ratio = portfolio_returns / torch.sqrt(portfolio_vol)
     
     return sharpe_ratio.mean()

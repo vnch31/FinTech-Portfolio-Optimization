@@ -46,7 +46,7 @@ class Backtest():
     def _create_strategies(self):
         # hard code strategy for now
         # basic strategies
-        self.strategies.append(RandomStrategy('random', self.tickers))
+        # self.strategies.append(RandomStrategy('random', self.tickers))
         self.strategies.append(Allocation1Strategy(
             'equal strategy', self.tickers))
 
@@ -87,7 +87,8 @@ class Backtest():
 
         # show results
         logging.debug("Backtesting results")
-        results = []
+        results = {}
+        return_results = []
         for strategy in self.strategies:
             logging.debug("---------------------------------")
             logging.debug(f"Results of strategy: {strategy.name}")
@@ -97,12 +98,19 @@ class Backtest():
             logging.debug(f"Volatilty: {volatility*100}%")
             logging.debug(f"Sharpe Ratio: {expected_return/volatility}")
             logging.debug(f"MDD: {get_mdd(strategy.daily_returns)}")
-            results.append((strategy.name, strategy.cum_returns))
+            # save return results
+            return_results.append((strategy.name, strategy.cum_returns))
+            # save metrics
+            results[strategy.name] = {
+                'expected_return': expected_return,
+                'volatility': volatility,
+                'sharpe_ratio': (expected_return/volatility)
+            }
 
-        results = [self._to_df(res[0], res[1]) for res in results]
-        df_results = pd.concat(results, axis=1)
+        return_results = [self._to_df(res[0], res[1]) for res in return_results]
+        df_results = pd.concat(return_results, axis=1)
         
         if plot:
             self._plot_curve(df_results)
     
-        return df_results
+        return df_results, results

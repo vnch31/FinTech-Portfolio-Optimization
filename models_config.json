@@ -6,8 +6,8 @@
       "hidden_dim": 64,
       "layer_dim": 3,
       "dropout_prob": 0.2,
-      "lower_bound": 0.2,
-      "upper_bound": 0.5
+      "lower_bound": 0.1,
+      "upper_bound": 0.7
     },
 
     "hyper_params": {
@@ -52,15 +52,15 @@
       "n_feature": 4,
       "n_output": 4,
       "num_channels": [5, 5, 50],
-      "kernel_size": 2,
+      "kernel_size": 3,
       "n_dropout": 0.2,
       "n_timestep": 50,
-      "lower_bound": 0.2,
-      "upper_bound": 0.5
+      "lower_bound": 0.1,
+      "upper_bound": 0.6
     },
     "hyper_params": {
-      "epochs": 2,
-      "learning_rate": 1e-2
+      "epochs": 5,
+      "learning_rate": 1e-4
     }
   },
   "transformer": {
@@ -71,8 +71,8 @@
       "num_layers": 2,
       "dim_ff": 2048,
       "dropout_prob": 0.2,
-      "lower_bound": 0.2,
-      "upper_bound": 0.5
+      "lower_bound": 0.1,
+      "upper_bound": 0.6
     },
     "hyper_params": {
       "epochs": 2,
