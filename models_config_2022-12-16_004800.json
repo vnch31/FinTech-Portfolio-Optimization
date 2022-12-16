@@ -3,11 +3,11 @@
     "params": {
       "input_dim": 4,
       "output_dim": 4,
-      "hidden_dim": 4,
-      "layer_dim": 2,
+      "hidden_dim": 128,
+      "layer_dim": 8,
       "dropout_prob": 0.1,
-      "lower_bound": 0.25,
-      "upper_bound": 0.6
+      "lower_bound": 0.2,
+      "upper_bound": 0.5
     },
 
     "hyper_params": {
@@ -19,12 +19,12 @@
     "params": {
       "input_dim": 4,
       "output_dim": 4,
-      "hidden_dim": 2,
-      "num_layers": 2,
-      "dim_ff": 1024,
+      "hidden_dim": 4,
+      "num_layers": 20,
+      "dim_ff": 2048,
       "dropout_prob": 0.1,
-      "lower_bound": 0.25,
-      "upper_bound": 0.6
+      "lower_bound": 0.2,
+      "upper_bound": 0.5
     },
     "hyper_params": {
       "epochs": 5,

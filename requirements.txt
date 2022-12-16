@@ -2,3 +2,4 @@ pandas
 torch
 matplotlib
 yfinance
+transformers

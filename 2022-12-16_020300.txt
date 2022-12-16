@@ -1,0 +1,205 @@
+2022-12-16 02:03:09,796 [DEBUG] use config:config.json
+2022-12-16 02:03:09,797 [DEBUG] Creating, training and testing models with the following parameters:
+2022-12-16 02:03:09,797 [DEBUG] VTI AGG DBC ^VIX
+from 2006-01-01 to 2022-10-01 with 1d interval
+retrain every 3 year with 30 days
+
+2022-12-16 02:03:09,797 [DEBUG] Getting data
+2022-12-16 02:03:09,797 [DEBUG] Fetch data using the following parameters:
+2022-12-16 02:03:09,797 [DEBUG] Tickers: VTI AGG DBC ^VIX
+2022-12-16 02:03:09,797 [DEBUG] Start date: 2006-01-01
+2022-12-16 02:03:09,797 [DEBUG] End date: 2022-10-01
+2022-12-16 02:03:09,797 [DEBUG] Interval: 1d
+2022-12-16 02:03:09,797 [DEBUG] File dataset_2006-01-01_2022-10-01_VTI_AGG_DBC_^VIX.csv, no need to download, loading file...
+2022-12-16 02:03:09,815 [DEBUG]        Unnamed: 0        Date Ticker  ...         Low        Open      Volume
+0               0  2006-01-03    AGG  ...   59.801179   59.866725    170600.0
+1               1  2006-01-03    VTI  ...   44.781733   45.091552   1769800.0
+2               2  2006-01-03   ^VIX  ...   10.990000   12.250000         0.0
+3               3  2006-01-04    AGG  ...   59.950149   59.997819    284500.0
+4               4  2006-01-04    VTI  ...   45.652858   45.678373    763600.0
+...           ...         ...    ...  ...         ...         ...         ...
+16836       16836  2022-09-29   ^VIX  ...   31.160000   31.670000         0.0
+16837       16837  2022-09-30    AGG  ...   95.320501   95.984443  14376300.0
+16838       16838  2022-09-30    DBC  ...   23.840000   24.020000   3947600.0
+16839       16839  2022-09-30    VTI  ...  179.279999  181.559998   8431700.0
+16840       16840  2022-09-30   ^VIX  ...   29.389999   31.610001         0.0
+
+[16841 rows x 8 columns]
+2022-12-16 02:03:09,844 [DEBUG] Training and testing with the device: cuda
+2022-12-16 02:03:09,845 [DEBUG] Training model: supertest
+2022-12-16 02:03:11,200 [DEBUG] Training from 2006, 2008
+2022-12-16 02:03:11,229 [DEBUG] [+] Creating LSTM model
+2022-12-16 02:03:11,230 [DEBUG] [+] Setting sgd optimizer
+2022-12-16 02:03:11,230 [DEBUG] [+] Training model...
+[1/3] Train loss : 0.0332, validation loss : -0.2037
+[2/3] Train loss : 0.0497, validation loss : -0.2128
+[3/3] Train loss : 0.0504, validation loss : -0.2181
+2022-12-16 02:03:30,412 [DEBUG] [+] Creating Transformer Encoder model
+2022-12-16 02:03:30,428 [DEBUG] [+] Setting sgd optimizer
+2022-12-16 02:03:30,429 [DEBUG] [+] Training model...
+[1/5] Train loss : 0.0228, validation loss : -0.0460
+[2/5] Train loss : 0.0155, validation loss : -0.1060
+[3/5] Train loss : 0.0297, validation loss : -0.1363
+[4/5] Train loss : 0.0290, validation loss : -0.1368
+[5/5] Train loss : 0.0300, validation loss : -0.1370
+2022-12-16 02:04:43,052 [DEBUG] Training from 2009, 2011
+2022-12-16 02:04:43,067 [DEBUG] [+] Setting sgd optimizer
+2022-12-16 02:04:43,067 [DEBUG] [+] Training model...
+[1/3] Train loss : 0.0397, validation loss : -0.0686
+[2/3] Train loss : 0.0392, validation loss : -0.0724
+[3/3] Train loss : 0.0344, validation loss : -0.0724
+2022-12-16 02:05:05,454 [DEBUG] [+] Setting sgd optimizer
+2022-12-16 02:05:05,455 [DEBUG] [+] Training model...
+[1/5] Train loss : 0.0419, validation loss : -0.0724
+[2/5] Train loss : 0.0344, validation loss : -0.0724
+[3/5] Train loss : 0.0344, validation loss : -0.0724
+[4/5] Train loss : 0.0344, validation loss : -0.0724
+[5/5] Train loss : 0.0344, validation loss : -0.0724
+2022-12-16 02:06:26,625 [DEBUG] Training from 2012, 2014
+2022-12-16 02:06:26,642 [DEBUG] [+] Setting sgd optimizer
+2022-12-16 02:06:26,642 [DEBUG] [+] Training model...
+[1/3] Train loss : 0.0112, validation loss : 0.0004
+[2/3] Train loss : 0.0112, validation loss : 0.0004
+[3/3] Train loss : 0.0112, validation loss : 0.0004
+2022-12-16 02:07:16,124 [DEBUG] [+] Setting sgd optimizer
+2022-12-16 02:07:16,125 [DEBUG] [+] Training model...
+[1/5] Train loss : 0.0112, validation loss : 0.0004
+[2/5] Train loss : 0.0112, validation loss : 0.0004
+[3/5] Train loss : 0.0112, validation loss : 0.0004
+[4/5] Train loss : 0.0112, validation loss : 0.0004
+[5/5] Train loss : 0.0112, validation loss : 0.0004
+2022-12-16 02:08:36,947 [DEBUG] Training from 2015, 2017
+2022-12-16 02:08:36,962 [DEBUG] [+] Setting sgd optimizer
+2022-12-16 02:08:36,963 [DEBUG] [+] Training model...
+[1/3] Train loss : -0.0210, validation loss : 0.0641
+[2/3] Train loss : -0.0210, validation loss : 0.0641
+[3/3] Train loss : -0.0210, validation loss : 0.0641
+2022-12-16 02:09:00,006 [DEBUG] [+] Setting sgd optimizer
+2022-12-16 02:09:00,008 [DEBUG] [+] Training model...
+[1/5] Train loss : -0.0210, validation loss : 0.0641
+[2/5] Train loss : -0.0210, validation loss : 0.0641
+[3/5] Train loss : -0.0210, validation loss : 0.0641
+[4/5] Train loss : -0.0210, validation loss : 0.0641
+[5/5] Train loss : -0.0210, validation loss : 0.0641
+2022-12-16 02:10:19,108 [DEBUG] Training from 2018, 2020
+2022-12-16 02:10:19,128 [DEBUG] [+] Setting sgd optimizer
+2022-12-16 02:10:19,128 [DEBUG] [+] Training model...
+[1/3] Train loss : 0.0378, validation loss : 0.0901
+[2/3] Train loss : 0.0378, validation loss : 0.0901
+[3/3] Train loss : 0.0378, validation loss : 0.0901
+2022-12-16 02:10:44,997 [DEBUG] [+] Setting sgd optimizer
+2022-12-16 02:10:44,999 [DEBUG] [+] Training model...
+[1/5] Train loss : 0.0378, validation loss : 0.0901
+[2/5] Train loss : 0.0378, validation loss : 0.0901
+[3/5] Train loss : 0.0378, validation loss : 0.0901
+[4/5] Train loss : 0.0378, validation loss : 0.0901
+[5/5] Train loss : 0.0378, validation loss : 0.0901
+2022-12-16 02:12:05,482 [DEBUG] Backtesting strategies
+2022-12-16 02:12:05,493 [DEBUG] First year: 2009
+2022-12-16 02:12:05,501 [DEBUG] First year: 2009
+2022-12-16 02:12:13,095 [DEBUG] Changing year: 2010
+2022-12-16 02:12:13,103 [DEBUG] Changing year: 2010
+2022-12-16 02:12:22,383 [DEBUG] Changing year: 2011
+2022-12-16 02:12:22,393 [DEBUG] Changing year: 2011
+2022-12-16 02:12:31,567 [DEBUG] Changing year: 2012
+2022-12-16 02:12:31,567 [DEBUG] Changing model: lstm - 0
+2022-12-16 02:12:31,576 [DEBUG] Changing year: 2012
+2022-12-16 02:12:31,576 [DEBUG] Changing model: transformer - 0
+2022-12-16 02:12:40,834 [DEBUG] Changing year: 2013
+2022-12-16 02:12:40,843 [DEBUG] Changing year: 2013
+2022-12-16 02:12:50,508 [DEBUG] Changing year: 2014
+2022-12-16 02:12:50,528 [DEBUG] Changing year: 2014
+2022-12-16 02:13:00,053 [DEBUG] Changing year: 2015
+2022-12-16 02:13:00,053 [DEBUG] Changing model: lstm - 1
+2022-12-16 02:13:00,063 [DEBUG] Changing year: 2015
+2022-12-16 02:13:00,064 [DEBUG] Changing model: transformer - 1
+2022-12-16 02:13:08,542 [DEBUG] Changing year: 2016
+2022-12-16 02:13:08,552 [DEBUG] Changing year: 2016
+2022-12-16 02:13:17,004 [DEBUG] Changing year: 2017
+2022-12-16 02:13:17,014 [DEBUG] Changing year: 2017
+2022-12-16 02:13:25,481 [DEBUG] Changing year: 2018
+2022-12-16 02:13:25,481 [DEBUG] Changing model: lstm - 2
+2022-12-16 02:13:25,490 [DEBUG] Changing year: 2018
+2022-12-16 02:13:25,490 [DEBUG] Changing model: transformer - 2
+2022-12-16 02:13:33,938 [DEBUG] Changing year: 2019
+2022-12-16 02:13:33,947 [DEBUG] Changing year: 2019
+2022-12-16 02:13:42,533 [DEBUG] Changing year: 2020
+2022-12-16 02:13:42,549 [DEBUG] Changing year: 2020
+2022-12-16 02:13:51,175 [DEBUG] Changing year: 2021
+2022-12-16 02:13:51,175 [DEBUG] Changing model: lstm - 3
+2022-12-16 02:13:51,184 [DEBUG] Changing year: 2021
+2022-12-16 02:13:51,185 [DEBUG] Changing model: transformer - 3
+2022-12-16 02:14:00,012 [DEBUG] Changing year: 2022
+2022-12-16 02:14:00,022 [DEBUG] Changing year: 2022
+2022-12-16 02:14:06,661 [DEBUG] Backtesting results
+2022-12-16 02:14:06,661 [DEBUG] ---------------------------------
+2022-12-16 02:14:06,662 [DEBUG] Results of strategy: random
+2022-12-16 02:14:06,663 [DEBUG] Expected returns: 18.01706266762484%
+2022-12-16 02:14:06,663 [DEBUG] Volatilty: 37.07902768051669%
+2022-12-16 02:14:06,663 [DEBUG] Sharpe Ratio: 0.48590979307399623
+2022-12-16 02:14:06,664 [DEBUG] MDD: -1.3108260631856312
+2022-12-16 02:14:06,664 [DEBUG] ---------------------------------
+2022-12-16 02:14:06,664 [DEBUG] Results of strategy: equal strategy
+2022-12-16 02:14:06,665 [DEBUG] Expected returns: 20.178419618996287%
+2022-12-16 02:14:06,665 [DEBUG] Volatilty: 27.893618377726032%
+2022-12-16 02:14:06,665 [DEBUG] Sharpe Ratio: 0.7234063127180881
+2022-12-16 02:14:06,666 [DEBUG] MDD: -1.2121061373370512
+2022-12-16 02:14:06,666 [DEBUG] ---------------------------------
+2022-12-16 02:14:06,666 [DEBUG] Results of strategy: lstm
+2022-12-16 02:14:06,667 [DEBUG] Expected returns: 19.771743013222544%
+2022-12-16 02:14:06,667 [DEBUG] Volatilty: 15.754783380605714%
+2022-12-16 02:14:06,667 [DEBUG] Sharpe Ratio: 1.2549676206631786
+2022-12-16 02:14:06,668 [DEBUG] MDD: -1.2536962963504308
+2022-12-16 02:14:06,668 [DEBUG] ---------------------------------
+2022-12-16 02:14:06,669 [DEBUG] Results of strategy: transformer
+2022-12-16 02:14:06,670 [DEBUG] Expected returns: 19.771743699673966%
+2022-12-16 02:14:06,670 [DEBUG] Volatilty: 15.754783437707506%
+2022-12-16 02:14:06,670 [DEBUG] Sharpe Ratio: 1.254967659685646
+2022-12-16 02:14:06,671 [DEBUG] MDD: -1.2536963197212991
+2022-12-16 02:14:06,777 [DEBUG] Saving results
+2022-12-16 02:14:07,058 [DEBUG] STREAM b'IHDR' 16 13
+2022-12-16 02:14:07,059 [DEBUG] STREAM b'sBIT' 41 4
+2022-12-16 02:14:07,059 [DEBUG] b'sBIT' 41 4 (unknown)
+2022-12-16 02:14:07,059 [DEBUG] STREAM b'pHYs' 57 9
+2022-12-16 02:14:07,059 [DEBUG] STREAM b'IDAT' 78 1189
+2022-12-16 02:14:07,062 [DEBUG] STREAM b'IHDR' 16 13
+2022-12-16 02:14:07,063 [DEBUG] STREAM b'sBIT' 41 4
+2022-12-16 02:14:07,063 [DEBUG] b'sBIT' 41 4 (unknown)
+2022-12-16 02:14:07,063 [DEBUG] STREAM b'pHYs' 57 9
+2022-12-16 02:14:07,063 [DEBUG] STREAM b'IDAT' 78 2994
+2022-12-16 02:14:07,109 [DEBUG] STREAM b'IHDR' 16 13
+2022-12-16 02:14:07,109 [DEBUG] STREAM b'sBIT' 41 4
+2022-12-16 02:14:07,109 [DEBUG] b'sBIT' 41 4 (unknown)
+2022-12-16 02:14:07,110 [DEBUG] STREAM b'pHYs' 57 9
+2022-12-16 02:14:07,110 [DEBUG] STREAM b'IDAT' 78 374
+2022-12-16 02:14:07,111 [DEBUG] STREAM b'IHDR' 16 13
+2022-12-16 02:14:07,111 [DEBUG] STREAM b'sBIT' 41 4
+2022-12-16 02:14:07,111 [DEBUG] b'sBIT' 41 4 (unknown)
+2022-12-16 02:14:07,111 [DEBUG] STREAM b'pHYs' 57 9
+2022-12-16 02:14:07,111 [DEBUG] STREAM b'IDAT' 78 286
+2022-12-16 02:14:07,113 [DEBUG] STREAM b'IHDR' 16 13
+2022-12-16 02:14:07,113 [DEBUG] STREAM b'sBIT' 41 4
+2022-12-16 02:14:07,113 [DEBUG] b'sBIT' 41 4 (unknown)
+2022-12-16 02:14:07,113 [DEBUG] STREAM b'pHYs' 57 9
+2022-12-16 02:14:07,113 [DEBUG] STREAM b'IDAT' 78 263
+2022-12-16 02:14:07,115 [DEBUG] STREAM b'IHDR' 16 13
+2022-12-16 02:14:07,115 [DEBUG] STREAM b'sBIT' 41 4
+2022-12-16 02:14:07,115 [DEBUG] b'sBIT' 41 4 (unknown)
+2022-12-16 02:14:07,115 [DEBUG] STREAM b'pHYs' 57 9
+2022-12-16 02:14:07,115 [DEBUG] STREAM b'IDAT' 78 387
+2022-12-16 02:14:07,117 [DEBUG] STREAM b'IHDR' 16 13
+2022-12-16 02:14:07,117 [DEBUG] STREAM b'sBIT' 41 4
+2022-12-16 02:14:07,117 [DEBUG] b'sBIT' 41 4 (unknown)
+2022-12-16 02:14:07,117 [DEBUG] STREAM b'pHYs' 57 9
+2022-12-16 02:14:07,117 [DEBUG] STREAM b'IDAT' 78 436
+2022-12-16 02:14:07,119 [DEBUG] STREAM b'IHDR' 16 13
+2022-12-16 02:14:07,119 [DEBUG] STREAM b'sBIT' 41 4
+2022-12-16 02:14:07,119 [DEBUG] b'sBIT' 41 4 (unknown)
+2022-12-16 02:14:07,119 [DEBUG] STREAM b'pHYs' 57 9
+2022-12-16 02:14:07,119 [DEBUG] STREAM b'IDAT' 78 351
+2022-12-16 02:14:07,120 [DEBUG] STREAM b'IHDR' 16 13
+2022-12-16 02:14:07,120 [DEBUG] STREAM b'sBIT' 41 4
+2022-12-16 02:14:07,121 [DEBUG] b'sBIT' 41 4 (unknown)
+2022-12-16 02:14:07,121 [DEBUG] STREAM b'pHYs' 57 9
+2022-12-16 02:14:07,121 [DEBUG] STREAM b'IDAT' 78 364
+2022-12-16 02:14:07,619 [DEBUG] Saving models

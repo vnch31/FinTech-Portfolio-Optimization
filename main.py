@@ -9,7 +9,7 @@ import os
 import torch
 
 # local imports
-from data import dataloader
+from data import dataloader, autotickers
 from train.trainer import Trainer
 
 # logging configuration
@@ -48,7 +48,8 @@ retrain every {train} year with {timestep} days
 
     trainer = Trainer(name=name, dataset_name=filename, data=df, train_step=train, timestep=timestep, batch_size=batch_size)
 
-    trainer.run(models=['lstm', 'tcn', 'rnn', 'gru', 'transformer'])
+    # trainer.run(models=['lstm', 'tcn', 'rnn', 'gru', 'transformer'])
+    trainer.run(models=['lstm', 'transformer'])
 
 
 if __name__ == "__main__":
@@ -59,8 +60,8 @@ if __name__ == "__main__":
     parser.add_argument('-c', '--config', help="Config File")
     parser.add_argument('-m', '--modelconfig', help="Model Config File")
     parser.add_argument('-n', '--name', help="Name of the model")
-    parser.add_argument('-a', '--auto-tickers', help="Using tickers from Sentiment Analysis (Max 20)")
-    parser.add_argument('-z', '--number-of-tickers', help="Number of tickers selected from Sentiment Analysis (Max 20), Default: 5", default='5')
+    parser.add_argument('-a', '--autotickers', help="Using tickers from Sentiment Analysis (Max 20)")
+    parser.add_argument('-z', '--numtickers', help="Number of tickers selected from Sentiment Analysis (Max 20), Default: 5", default='5', type=int)
     parser.add_argument('-t', '--tickers', nargs='+',
                         help="Tickers to retrieve (will override auto-tickers)")
     parser.add_argument('-s', '--start', help="Start date : YYYY-MM-DD")
