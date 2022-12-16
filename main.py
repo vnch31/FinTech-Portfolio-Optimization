@@ -60,8 +60,7 @@ if __name__ == "__main__":
     parser.add_argument('-c', '--config', help="Config File")
     parser.add_argument('-m', '--modelconfig', help="Model Config File")
     parser.add_argument('-n', '--name', help="Name of the model")
-    parser.add_argument('-a', '--autotickers', help="Using tickers from Sentiment Analysis (Max 20)")
-    parser.add_argument('-z', '--numtickers', help="Number of tickers selected from Sentiment Analysis (Max 20), Default: 5", default='5', type=int)
+    parser.add_argument('-a', '--autotickers', help="Using tickers from Sentiment Analysis (Max 20)", default='5', type=int)
     parser.add_argument('-t', '--tickers', nargs='+',
                         help="Tickers to retrieve (will override auto-tickers)")
     parser.add_argument('-s', '--start', help="Start date : YYYY-MM-DD")
