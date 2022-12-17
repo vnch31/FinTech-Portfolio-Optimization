@@ -44,9 +44,9 @@ def get_data_from_sp500(start_date, end_date, num_tickers, interval="1d"):
     df = None
 
     # check if file exists
-    if os.path.isfile(f'./data/autotickers/{filename}'):
+    if os.path.isfile(f'./data/downloads/{filename}'):
         logging.debug(f'File {filename}, no need to download, loading file...')
-        df = pd.read_csv(f'./data/autotickers/{filename}')
+        df = pd.read_csv(f'./data/downloads/{filename}')
         logging.debug(f"Sort By Date & Ticker")
         df = df.sort_values(by=['Date', 'Ticker'])
         logging.debug(df)
@@ -69,9 +69,9 @@ def get_data_from_sp500(start_date, end_date, num_tickers, interval="1d"):
         logging.debug(df)
 
         # save to file (cache)
-        logging.debug(f'./data/autotickers/{filename}')
+        logging.debug(f'./data/downloads/{filename}')
 
-        with open(f'./data/autotickers/{filename}', 'w+') as fd:
+        with open(f'./data/downloads/{filename}', 'w+') as fd:
             df.to_csv(fd)
 
         logging.debug(f"Dataset saved as : {filename}")
@@ -106,7 +106,7 @@ def get_data_from_sp500(start_date, end_date, num_tickers, interval="1d"):
     cb = plt.colorbar()
     cb.ax.tick_params(labelsize=14)
     plt.title('Correlation Matrix top ' + str(num_tickers * 2), fontsize=16,pad=30);
-    save_path = './data/autotickers/'+ 'correlation_matrix_'+ str(num_tickers * 2) + '_' + filename_plt
+    save_path = './data/downloads/'+ 'correlation_matrix_'+ str(num_tickers * 2) + '_' + filename_plt
     plt.savefig(save_path)
 
     return list_top_num
@@ -117,7 +117,7 @@ def cache_news(start_date, end_date, top_n_tickers_from_s500):
     for tick in top_n_tickers_from_s500:
       if len(tick) < 2:
         continue
-      file_news = f'./data/autotickers/news-{start_date}-{end_date}-{tick}.csv'
+      file_news = f'./data/downloads/news-{start_date}-{end_date}-{tick}.csv'
       if os.path.isfile(file_news):
         logging.debug(f"Already cached: {file_news}")
 
@@ -178,7 +178,7 @@ def get_sentiment(start_date, end_date, top_n_tickers_from_s500, num_tickers):
       tick_pos = 0
       tick_neg = 0
 
-      file_news = f'./data/autotickers/news-{start_date}-{end_date}-{tick}.csv'
+      file_news = f'./data/downloads/news-{start_date}-{end_date}-{tick}.csv'
       df_titles = pd.read_csv(file_news)
       
       for index, row in df_titles.iterrows():
