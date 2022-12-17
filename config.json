@@ -4,15 +4,8 @@
     "start_date": "2006-01-01",
     "end_date": "2022-10-01",
     "interval": "1d",
-<<<<<<< HEAD
-    "timestep": 25,
-    "train": 1,
-    "device": "cuda",
-    "batch_size": 128
-=======
     "timestep": 50,
     "train": 2,
     "device": "cpu",
     "batch_size": 32
->>>>>>> main
 }
