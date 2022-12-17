@@ -29,7 +29,7 @@ def get_data_yfinance(tickers, start_date, end_date, interval):
         # check if file exists
         if os.path.isfile(f'./data/downloads/{filename}'):
             logging.debug(f'File {filename}, no need to download, loading file...')
-            df = pd.read_csv(f'./data/downloads/{filename}')
+            df = pd.read_csv(f'./data/downloads/{filename}', index_col=0)
             logging.debug(df)
             return df
 

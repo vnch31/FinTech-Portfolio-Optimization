@@ -33,7 +33,6 @@ def get_data_from_sp500(start_date, end_date, num_tickers, interval="1d"):
     ticker = yfinance.Ticker("SPY")
     days = ticker.history(interval="1d",start=start_date,end=end_date).shape[0]
 
-
     arr_symbol = []
     for symbol in tickers['Symbol']:
       arr_symbol.append(symbol)
@@ -48,6 +47,7 @@ def get_data_from_sp500(start_date, end_date, num_tickers, interval="1d"):
     if os.path.isfile(f'./data/autotickers/{filename}'):
         logging.debug(f'File {filename}, no need to download, loading file...')
         df = pd.read_csv(f'./data/autotickers/{filename}')
+        logging.debug(f"Sort By Date & Ticker")
         df = df.sort_values(by=['Date', 'Ticker'])
         logging.debug(df)
 
@@ -63,6 +63,7 @@ def get_data_from_sp500(start_date, end_date, num_tickers, interval="1d"):
         )
         # remove multi level column
         df = df.stack(level=0).rename_axis(['Date', 'Ticker']).reset_index(level=1)
+        logging.debug(f"Sort By Date & Ticker")
         df = df.sort_values(by=['Date', 'Ticker'])
 
         logging.debug(df)
@@ -78,14 +79,13 @@ def get_data_from_sp500(start_date, end_date, num_tickers, interval="1d"):
     total = pd.DataFrame()
 
     for ticker in arr_symbol:
-
         tmp = df.loc[df['Ticker'] == ticker, 'Close'].pct_change(1)
         tmp = tmp.dropna().reset_index(drop=True)
         tmp_pd = pd.DataFrame(tmp)
         tmp_pd.set_axis([ticker], axis="columns", inplace=True)
-        # tmp = tmp.drop(['Ticker', 'Close','High','Low','Open','Volume'], axis=1)
         total = pd.merge(total, tmp_pd,left_index = True, right_index = True, how='outer')
 
+    logging.debug(f"Processing Correlation Matrix : {arr_symbol}")
     corr_table = total.corr()
     corr_table['stock1'] = corr_table.index
     corr_table = corr_table.melt(id_vars = 'stock1', var_name = "stock2").reset_index(drop = True)
@@ -97,7 +97,6 @@ def get_data_from_sp500(start_date, end_date, num_tickers, interval="1d"):
     top_num_uncorr = pd.DataFrame(highest_corr['stock1'].append(highest_corr['stock2'],ignore_index = True),columns=['stock']).drop_duplicates()
 
     list_top_num = list(top_num_uncorr.values.flatten())
-
     df = total[list_top_num] 
 
     f = plt.figure(figsize=(15,10))
@@ -118,7 +117,7 @@ def cache_news(start_date, end_date, top_n_tickers_from_s500):
     for tick in top_n_tickers_from_s500:
       if len(tick) < 2:
         continue
-      file_news = f'./data/autotickers/news-{tick}.csv'
+      file_news = f'./data/autotickers/news-{start_date}-{end_date}-{tick}.csv'
       if os.path.isfile(file_news):
         logging.debug(f"Already cached: {file_news}")
 
@@ -135,7 +134,7 @@ def cache_news(start_date, end_date, top_n_tickers_from_s500):
           res = requests.get(api, timeout=3)
           json_data = res.json()
           print(json_data)
-          if json_data['data'] and len(json_data['data']) > 0:
+          if 'data' in json_data  and len(json_data['data']) > 0:
             for itr in range(len(json_data['data'])):
               entry = json_data['data'][itr]
               text = entry['title']
@@ -179,7 +178,7 @@ def get_sentiment(start_date, end_date, top_n_tickers_from_s500, num_tickers):
       tick_pos = 0
       tick_neg = 0
 
-      file_news = f'./data/autotickers/news-{tick}.csv'
+      file_news = f'./data/autotickers/news-{start_date}-{end_date}-{tick}.csv'
       df_titles = pd.read_csv(file_news)
       
       for index, row in df_titles.iterrows():
