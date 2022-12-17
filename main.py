@@ -24,7 +24,7 @@ logging.basicConfig(
 logging.getLogger('matplotlib').setLevel(logging.ERROR)
 
 
-def main(name, tickers, start_date, end_date, interval, timestep, train, batch_size, device='cpu'):
+def main(name, tickers, start_date, end_date, interval, timestep, train, batch_size, modelsconfig, device='cpu'):
     # logs parameters
     logging.debug(
         "Creating, training and testing models with the following parameters:")
@@ -57,8 +57,8 @@ if __name__ == "__main__":
     parser = argparse.ArgumentParser(
         description="Dataloader options, if no argument given config.json will be used"
     )
-    parser.add_argument('-c', '--config', help="Config File")
-    parser.add_argument('-m', '--modelconfig', help="Model Config File")
+    parser.add_argument('-c', '--config', help="Config File (default: config.json)")
+    parser.add_argument('-m', '--modelsconfig', help="Models Config File (default: models_config.json)")
     parser.add_argument('-n', '--name', help="Name of the model")
     parser.add_argument('-a', '--autotickers', help="Using tickers from Sentiment Analysis (Max 20)", default='5', type=int)
     parser.add_argument('-t', '--tickers', nargs='+',
@@ -94,7 +94,7 @@ if __name__ == "__main__":
         file_config = 'config.json'
         if args.config:
             file_config = args.config
-        logging.debug(f"use config:" + file_config)
+        logging.debug(f"use config: " + file_config)
         try:
             with open(file_config, 'r') as fd:
                 config = json.load(fd)
@@ -102,6 +102,12 @@ if __name__ == "__main__":
             logging.error(f"An error occured while reading the file")
             logging.error(str(e))
             os.exit(1)
+
+    models_config = 'models_config.json'
+    if args.modelsconfig:
+        models_config = args.modelsconfig
+        config['modelsconfig'] = args.modelsconfig
+    logging.debug(f"use models config: " + models_config)
 
     # TODO: check args
 

@@ -32,10 +32,11 @@ logging.getLogger('matplotlib').setLevel(logging.ERROR)
 
 
 class Trainer():
-    def __init__(self, name, dataset_name, data, train_step, timestep, batch_size=64, device='cpu'):
+    def __init__(self, name, dataset_name, data, train_step, timestep, batch_size=64, device='cpu', modelsconfig='models_config.json'):
         # trainer
         self.name = name
         self.dataset_name = dataset_name.split('.')[0]
+        self.modelsconfig = modelsconfig
         logging.debug(f"Training model: {self.name}")
 
         # backtesting data
@@ -312,7 +313,7 @@ class Trainer():
             all_models[model] = []
 
         # load model configuration
-        with open('models_config.json', 'r') as fd:
+        with open(self.modelsconfig, 'r') as fd:
             models_config = json.load(fd)
 
         # ----- Training -----
