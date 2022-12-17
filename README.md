@@ -60,7 +60,7 @@ optional arguments:
 
 ## Custom Configuration
 
-Main configuration (config.json), default value:
+Main configuration ([config.json](https://github.com/vnch31/FinTech-Portfolio-Optimization/blob/adin/config.json)), default value:
 ```
 {
     "name": "test_tcn_2",
@@ -75,7 +75,7 @@ Main configuration (config.json), default value:
 }
 ```
 
-Model configuration (models_config.json), example:
+Model configuration ([models_config.json](https://github.com/vnch31/FinTech-Portfolio-Optimization/blob/main/models_config.json)), example:
 ```
 {
   ....
@@ -98,3 +98,10 @@ Model configuration (models_config.json), example:
   ....
 }
 ```
+
+Supported Deep Learning:
+- lstm
+- gru
+- rnn
+- tcn
+- transformer
