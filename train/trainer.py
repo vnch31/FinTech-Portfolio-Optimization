@@ -263,6 +263,8 @@ class Trainer():
                 logging.debug(f"[+] Creating GRU model")
                 model = GRU(**params).to(self.device)
             elif model_name.lower() == 'transformer':
+                # make sure hidden dim can be divisible by num_heads
+                params['hidden_dim'] = params['input_dim']
                 logging.debug("[+] Creating Transformer Encoder model")
                 model = TransformerEncoder(**params).to(self.device)
             elif model_name.lower() == 'tcn':
@@ -308,18 +310,20 @@ class Trainer():
 
         return model, opti
 
-    def run(self, models: list):
-        # create dictionnary of models
-        all_models = {}
-
-        for model in models:
-            # list of models through years for backtesting
-            all_models[model] = []
+    def run(self):
 
         # load model configuration
         logging.debug(f"Open Models Config: {self.modelsconfig}")
         with open(self.modelsconfig, 'r') as fd:
             models_config = json.load(fd)
+
+        # create dictionnary of models
+        all_models = {}
+        models = models_config.keys()
+        logging.debug(f"Models to review: {models}")
+        for model in models:
+            # list of models through years for backtesting
+            all_models[model] = []
 
         # ----- Training -----
         # iter through every year
@@ -355,9 +359,10 @@ class Trainer():
             # iter through models
             for model_name in models:
                 # override input & output value based on number of tickers
+
                 models_config[model_name]['params']['input_dim'] = len(self.tickers) 
                 models_config[model_name]['params']['output_dim'] = len(self.tickers)
-                
+
                 # first iteration, create the model
                 if len(all_models[model_name]) == 0:
                     model, _ = self._train_test(model_name=model_name, optimizer_name='sgd', train_loader=train_dataloader,

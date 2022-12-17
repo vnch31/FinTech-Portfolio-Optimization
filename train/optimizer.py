@@ -103,12 +103,12 @@ class Optimizer():
                 
             # show progression
             if (epoch <= 10 or epoch % 10 == 0) and verbose:
-                print(f"[{epoch}/{n_epochs}] Train loss : {(train_loss):>0.0000004f}, validation loss : {(valid_loss):>0.0000004f}")
+                print(f"[{epoch}/{n_epochs}] Train criterion : {(train_loss):>0.0000004f}, validation criterion : {(valid_loss):>0.0000004f}")
     
     def plot_losses(self):
-        plt.title("Train and Validation loss")
-        plt.plot(self.train_losses, label='Training loss')
-        plt.plot(self.valid_losses, label='Validation loss')
+        plt.title("Train and Validation criterion")
+        plt.plot(self.train_losses, label='Training criterion')
+        plt.plot(self.valid_losses, label='Validation criterion')
         plt.legend()
         plt.show()
         plt.close()

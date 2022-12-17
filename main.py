@@ -48,8 +48,7 @@ retrain every {train} year with {timestep} days
 
     trainer = Trainer(name=name, dataset_name=filename, data=df, train_step=train, timestep=timestep, batch_size=batch_size, modelsconfig=modelsconfig)
 
-    trainer.run(models=['tcn'])
-
+    trainer.run()
 
 if __name__ == "__main__":
     # argument parser
@@ -59,7 +58,7 @@ if __name__ == "__main__":
     parser.add_argument('-c', '--config', help="Config File (default: config.json)")
     parser.add_argument('-m', '--modelsconfig', help="Models Config File (default: models_config.json)")
     parser.add_argument('-n', '--name', help="Name of the model")
-    parser.add_argument('-a', '--autotickers', help="Using tickers from Sentiment Analysis (Max 20), required: start & end", default='5', type=int)
+    parser.add_argument('-a', '--autotickers', help="Using tickers from Sentiment Analysis (Max 7), required: start & end", type=int)
     parser.add_argument('-t', '--tickers', nargs='+',
                         help="Tickers to use, required: start & end")
     parser.add_argument('-s', '--start', help="Start date : YYYY-MM-DD")
@@ -80,6 +79,9 @@ if __name__ == "__main__":
     if args.autotickers or args.tickers:
         if args.start == None or args.end == None:
             logging.error(f"Tickers / AutoTickers requires start & end date ")
+            exit(1)
+        if args.autotickers > 7:
+            logging.error(f"Maximum tickers: 7")
             exit(1)
 
     # use file configuration
@@ -120,6 +122,6 @@ if __name__ == "__main__":
         models_config = args.modelsconfig
 
     config['modelsconfig'] = models_config
-    logging.debug(f"use models config: " + models_config)
+    logging.debug(f"use models config: {models_config}")
 
     main(**config)

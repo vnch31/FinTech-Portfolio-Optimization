@@ -7,6 +7,7 @@ import os
 import logging
 import sys
 import matplotlib.pyplot as plt
+from GoogleNews import GoogleNews
 
 # for sentiment analysis
 from transformers import pipeline
@@ -111,28 +112,54 @@ def get_data_from_sp500(start_date, end_date, num_tickers, interval="1d"):
 
     return list_top_num
 
-def cache_news(top_n_tickers_from_s500):
+def cache_news(start_date, end_date, top_n_tickers_from_s500):
     column = ["title"]
-    subreddits = ['StocksAndTrading', 'Wallstreetbetsnew', 'wallstreetbetsOGs', 'daytrading', 'StockMarket', 'stocks', 'dividends']
 
     for tick in top_n_tickers_from_s500:
       if len(tick) < 2:
         continue
-      file_news = f'./data/autotickers/{tick}.csv'
+      file_news = f'./data/autotickers/news-{tick}.csv'
       if os.path.isfile(file_news):
         logging.debug(f"Already cached: {file_news}")
 
         continue
       logging.debug(f"extracting and analyzing data for slock: {tick}")
       df_news = pd.DataFrame(columns=['ticker', 'title'])
+
+      # source: REDDIT
+      # Lists of Sub-Reddit
+      subreddits = ['StocksAndTrading', 'Wallstreetbetsnew', 'wallstreetbetsOGs', 'daytrading', 'StockMarket', 'stocks', 'dividends']
       for sub_reddit in subreddits:
-        api = "https://api.pushshift.io/reddit/search/submission/?q="+tick+"&subreddit="+sub_reddit+"&size=500&fields="+",".join(column)
-        res = requests.get(api, timeout=10)
-        json_data = res.json()['data']
-        for itr in range(len(json_data)):
-          entry = json_data[itr]
-          text = entry['title']
-          df_news = df_news.append({'ticker': tick, 'title': text}, ignore_index=True)
+        api = "http://api.pushshift.io/reddit/search/submission/?q="+tick+"&subreddit="+sub_reddit+"&size=500&fields="+",".join(column)
+        try:
+          res = requests.get(api, timeout=5)
+          json_data = res.json()['data']
+          for itr in range(len(json_data)):
+            entry = json_data[itr]
+            text = entry['title']
+            df_news = df_news.append({'ticker': tick, 'title': text}, ignore_index=True)
+        except requests.exceptions.RequestException as e:
+          logging.debug(f"Skip search Reddit on: {tick} subreddit: {sub_reddit}")
+
+      # source: Google News 
+      # Lists of Media Source
+
+      media_lists = ['Yahoo Finance', 'CNBC', 'Bloomberg.com', 'Seeking Alpha', 'Nasdaq']
+
+      googlenews = GoogleNews()
+      googlenews.set_lang('en')
+      googlenews.set_encode('utf-8')
+      googlenews.set_time_range(start_date, end_date)
+
+      keyword = tick
+      googlenews.search(keyword)
+      results = googlenews.results()
+
+      arr_title = []
+      for item in results:
+        if item['media'] in media_lists:
+          df_news = df_news.append({'ticker': tick, 'title': item['title']}, ignore_index=True)
+
       df_news.to_csv(file_news)
       
 def get_sentiment(start_date, end_date, top_n_tickers_from_s500, num_tickers):
@@ -150,7 +177,7 @@ def get_sentiment(start_date, end_date, top_n_tickers_from_s500, num_tickers):
       tick_pos = 0
       tick_neg = 0
 
-      file_news = f'./data/autotickers/{tick}.csv'
+      file_news = f'./data/autotickers/news-{tick}.csv'
       df_titles = pd.read_csv(file_news)
       
       for index, row in df_titles.iterrows():
@@ -169,12 +196,15 @@ def get_sentiment(start_date, end_date, top_n_tickers_from_s500, num_tickers):
 
     df_results['sentiment'] = df_results['positive'] - df_results['negative']
     df_results = df_results.sort_values(by=['sentiment'], ascending=False).reset_index(drop=True).head(num_tickers)
+    logging.debug(f"Ticker Lists:")
+    print(df_results)
+    
     sorted_list_of_stocks = df_results.sort_values(by=['stock'], ascending=True)
     return sorted_list_of_stocks['stock'].values.tolist()
 
 def get_auto_tickers(start_date, end_date, num_tickers =10, interval="1d"):
   list_candidate_tickers_from_s500 = get_data_from_sp500(start_date, end_date, num_tickers)
-  cache_news(list_candidate_tickers_from_s500)
+  cache_news(start_date, end_date, list_candidate_tickers_from_s500)
   top_n_tickers_from_s500_with_sentiment = get_sentiment(start_date, end_date, list_candidate_tickers_from_s500, num_tickers)
 
   logging.debug(f"Tickers with maximum variance & positive sentiment: {top_n_tickers_from_s500_with_sentiment}")
