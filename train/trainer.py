@@ -60,7 +60,7 @@ class Trainer():
     def _preprocess_dataset(self):
         # process data
         # sort by tickers and date
-        self.data = self.data.sort_values(by=['Date', 'Ticker'])
+        self.data = self.data.sort_values(by=['Date', 'Ticker'], ignore_index=False)
 
         # add return and log return values
         for ticker in self.data.Ticker.unique():
@@ -313,6 +313,7 @@ class Trainer():
             all_models[model] = []
 
         # load model configuration
+        logging.debug(f"Open Models Config: {self.modelsconfig}")
         with open(self.modelsconfig, 'r') as fd:
             models_config = json.load(fd)
 
@@ -349,6 +350,9 @@ class Trainer():
 
             # iter through models
             for model_name in models:
+                # override input & output value based on number of tickers
+                models_config[model_name]['params']['input_dim'] = len(self.tickers) 
+                models_config[model_name]['params']['output_dim'] = len(self.tickers)
                 # first iteration, create the model
                 if len(all_models[model_name]) == 0:
                     model, _ = self._train_test(model_name=model_name, optimizer_name='sgd', train_loader=train_dataloader,

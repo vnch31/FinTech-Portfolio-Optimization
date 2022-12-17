@@ -46,10 +46,9 @@ retrain every {train} year with {timestep} days
         
     logging.debug(f"Training and testing with the device: {device}")
 
-    trainer = Trainer(name=name, dataset_name=filename, data=df, train_step=train, timestep=timestep, batch_size=batch_size)
+    trainer = Trainer(name=name, dataset_name=filename, data=df, train_step=train, timestep=timestep, batch_size=batch_size, modelsconfig=modelsconfig)
 
-    # trainer.run(models=['lstm', 'tcn', 'rnn', 'gru', 'transformer'])
-    trainer.run(models=['lstm', 'transformer'])
+    trainer.run(models=['lstm', 'tcn', 'rnn', 'gru', 'transformer'])
 
 
 if __name__ == "__main__":
@@ -60,9 +59,9 @@ if __name__ == "__main__":
     parser.add_argument('-c', '--config', help="Config File (default: config.json)")
     parser.add_argument('-m', '--modelsconfig', help="Models Config File (default: models_config.json)")
     parser.add_argument('-n', '--name', help="Name of the model")
-    parser.add_argument('-a', '--autotickers', help="Using tickers from Sentiment Analysis (Max 20)", default='5', type=int)
+    parser.add_argument('-a', '--autotickers', help="Using tickers from Sentiment Analysis (Max 20), required: start & end", default='5', type=int)
     parser.add_argument('-t', '--tickers', nargs='+',
-                        help="Tickers to retrieve (will override auto-tickers)")
+                        help="Tickers to use, required: start & end")
     parser.add_argument('-s', '--start', help="Start date : YYYY-MM-DD")
     parser.add_argument('-e', '--end', help="End date : YYYY-MM-DD")
     parser.add_argument('-i', '--interval',
@@ -77,9 +76,35 @@ if __name__ == "__main__":
     # variables
     config = {}
 
-    # check for args
-    if (args.tickers and args.start and args.end):
-        config['tickers'] = ' '.join(args.tickers)
+    # check args
+    if args.autotickers or args.tickers:
+        if args.start == None or args.end == None:
+            logging.error(f"Tickers / AutoTickers requires start & end date ")
+            exit(1)
+
+    # use file configuration
+    file_config = 'config.json'
+    if args.config:
+        file_config = args.config
+    logging.debug(f"use config: " + file_config)
+    try:
+        with open(file_config, 'r') as fd:
+            config = json.load(fd)
+    except Exception as e:
+        logging.error(f"An error occured while reading the file")
+        logging.error(str(e))
+        exit(1)
+
+    # file configuration can be override by manual parameters
+    if (args.start and args.end):
+        # manually set tickers
+        if args.tickers:
+            config['tickers'] = ' '.join(args.tickers)
+
+        # check use autotickers to get uncorrelated tickers
+        elif args.autotickers:
+            tickers = autotickers.get_auto_tickers(args.start, args.end, args.autotickers)        
+            config['tickers'] = ' '.join(tickers)
 
     if (args.start and args.end):
         config['start_date'] = args.start
@@ -89,26 +114,12 @@ if __name__ == "__main__":
         config['train'] = args.retrain
         config['device'] = args.device
 
-    # use file configuration
-    else:
-        file_config = 'config.json'
-        if args.config:
-            file_config = args.config
-        logging.debug(f"use config: " + file_config)
-        try:
-            with open(file_config, 'r') as fd:
-                config = json.load(fd)
-        except Exception as e:
-            logging.error(f"An error occured while reading the file")
-            logging.error(str(e))
-            os.exit(1)
 
     models_config = 'models_config.json'
     if args.modelsconfig:
         models_config = args.modelsconfig
-        config['modelsconfig'] = args.modelsconfig
-    logging.debug(f"use models config: " + models_config)
 
-    # TODO: check args
+    config['modelsconfig'] = models_config
+    logging.debug(f"use models config: " + models_config)
 
     main(**config)
