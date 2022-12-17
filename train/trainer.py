@@ -171,7 +171,7 @@ class Trainer():
 
         return chart_data
 
-    def _save(self, models: dict, results: pd.DataFrame):
+    def _save(self, models: dict, df_results: pd.DataFrame, results: dict):
         # check if save exists
         if not os.path.exists('./save/'):
             logging.debug("Creating save directory")
@@ -215,17 +215,21 @@ class Trainer():
         if not os.path.exists(f'models_{self.name}'):
             os.mkdir(f'models_{self.name}')
 
-        # save results
+        # save dataframe
         logging.debug("Saving results")
-        results.to_json(f'results_{self.name}/results.json')
+        df_results.to_json(f'results_{self.name}/results.json')
+
+        # save metrics results
+        with open(f'results_{self.name}/metrics_results.json', 'w+') as fd:
+            json.dump(results, fd)
 
         # save figure
-        plot = results.plot()
+        plot = df_results.plot()
         fig = plot.get_figure()
         fig.savefig(f'results_{self.name}/results.png')
 
         # chart data
-        chart_results = self._to_chartjs(results)
+        chart_results = self._to_chartjs(df_results)
         with open(f'results_{self.name}/chart.json', 'w+') as fd:
             json.dump(chart_results, fd)
 
@@ -365,10 +369,10 @@ class Trainer():
 
         # ---- Test -----
         backtest = Backtest(self.data.copy(), all_models, self.tickers, self.train_step)
-        df_results = backtest.run(self.timestep)
+        df_results, results = backtest.run(self.timestep)
 
         # ----- Save -----
-        self._save(models=all_models, results=df_results)
+        self._save(models=all_models, df_results=df_results, results=results)
 
 
             
