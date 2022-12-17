@@ -49,8 +49,8 @@
   },
   "tcn": {
     "params": {
-      "n_feature": 4,
-      "n_output": 4,
+      "input_dim": 4,
+      "output_dim": 4,
       "num_channels": [5, 5, 50],
       "kernel_size": 3,
       "n_dropout": 0.2,

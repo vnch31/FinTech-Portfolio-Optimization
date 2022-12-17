@@ -67,7 +67,8 @@ def get_data_from_sp500(start_date, end_date, num_tickers, interval="1d"):
         logging.debug(df)
 
         # save to file (cache)
-        print(f'./data/autotickers/{filename}')
+        logging.debug(f'./data/autotickers/{filename}')
+
         with open(f'./data/autotickers/{filename}', 'w+') as fd:
             df.to_csv(fd)
 
@@ -97,8 +98,6 @@ def get_data_from_sp500(start_date, end_date, num_tickers, interval="1d"):
     list_top_num = list(top_num_uncorr.values.flatten())
 
     df = total[list_top_num] 
-    # print(df)
-
 
     f = plt.figure(figsize=(15,10))
     plt.matshow(df.corr(), fignum=f.number)
@@ -107,7 +106,8 @@ def get_data_from_sp500(start_date, end_date, num_tickers, interval="1d"):
     cb = plt.colorbar()
     cb.ax.tick_params(labelsize=14)
     plt.title('Correlation Matrix top ' + str(num_tickers * 2), fontsize=16,pad=30);
-    plt.savefig('top_'+ str(num_tickers * 2) + '_' + filename_plt)
+    save_path = './data/autotickers/'+ 'correlation_matrix_'+ str(num_tickers * 2) + '_' + filename_plt
+    plt.savefig(save_path)
 
     return list_top_num
 
@@ -120,9 +120,10 @@ def cache_news(top_n_tickers_from_s500):
         continue
       file_news = f'./data/autotickers/{tick}.csv'
       if os.path.isfile(file_news):
-        print("Already cached: " + file_news)
+        logging.debug(f"Already cached: {file_news}")
+
         continue
-      print(f"extracting and analyzing data for slock: {tick}")
+      logging.debug(f"extracting and analyzing data for slock: {tick}")
       df_news = pd.DataFrame(columns=['ticker', 'title'])
       for sub_reddit in subreddits:
         api = "https://api.pushshift.io/reddit/search/submission/?q="+tick+"&subreddit="+sub_reddit+"&size=500&fields="+",".join(column)
@@ -133,8 +134,7 @@ def cache_news(top_n_tickers_from_s500):
           text = entry['title']
           df_news = df_news.append({'ticker': tick, 'title': text}, ignore_index=True)
       df_news.to_csv(file_news)
-      print(df_news)
-
+      
 def get_sentiment(start_date, end_date, top_n_tickers_from_s500, num_tickers):
     classifier = pipeline("text-classification", model="distilbert-base-uncased-finetuned-sst-2-english")
 
@@ -144,7 +144,9 @@ def get_sentiment(start_date, end_date, top_n_tickers_from_s500, num_tickers):
     for tick in top_n_tickers_from_s500:
       if len(tick) < 2:
         continue
-      print(f"extracting and analyzing data for slock: {tick}")
+
+      logging.debug(f"extracting and analyzing data for slock: {tick}")
+
       tick_pos = 0
       tick_neg = 0
 
@@ -162,20 +164,18 @@ def get_sentiment(start_date, end_date, top_n_tickers_from_s500, num_tickers):
           tick_neg += 1
 
       df_res = pd.DataFrame(data=[[tick,tick_pos,tick_neg]], columns=['stock', 'positive', 'negative'])
-      print(f"tick pos: {tick_pos}, tick neg: {tick_neg}")
+      logging.debug(f"tick pos: {tick_pos}, tick neg: {tick_neg}")
       df_results = df_results.append(df_res, ignore_index=True)
+
     df_results['sentiment'] = df_results['positive'] - df_results['negative']
     df_results = df_results.sort_values(by=['sentiment'], ascending=False).reset_index(drop=True).head(num_tickers)
-    print(df_results)
     sorted_list_of_stocks = df_results.sort_values(by=['stock'], ascending=True)
     return sorted_list_of_stocks['stock'].values.tolist()
 
 def get_auto_tickers(start_date, end_date, num_tickers =10, interval="1d"):
   list_candidate_tickers_from_s500 = get_data_from_sp500(start_date, end_date, num_tickers)
-  print(list_candidate_tickers_from_s500)
   cache_news(list_candidate_tickers_from_s500)
   top_n_tickers_from_s500_with_sentiment = get_sentiment(start_date, end_date, list_candidate_tickers_from_s500, num_tickers)
 
-  print("Tickers with maximum variance & positive sentiment")
-  print(top_n_tickers_from_s500_with_sentiment)
+  logging.debug(f"Tickers with maximum variance & positive sentiment: {top_n_tickers_from_s500_with_sentiment}")
   return top_n_tickers_from_s500_with_sentiment

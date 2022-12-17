@@ -357,6 +357,7 @@ class Trainer():
                 # override input & output value based on number of tickers
                 models_config[model_name]['params']['input_dim'] = len(self.tickers) 
                 models_config[model_name]['params']['output_dim'] = len(self.tickers)
+                
                 # first iteration, create the model
                 if len(all_models[model_name]) == 0:
                     model, _ = self._train_test(model_name=model_name, optimizer_name='sgd', train_loader=train_dataloader,

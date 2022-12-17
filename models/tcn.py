@@ -4,9 +4,11 @@ import torch.nn.functional as F
 from torch.nn.utils import weight_norm
 
 class TCN(nn.Module):
-    def __init__(self, n_feature, n_output, num_channels,
+    def __init__(self, input_dim, output_dim, num_channels,
                  kernel_size, n_dropout, n_timestep, rebalance=True, lower_bound=0, upper_bound=0.3):
         super(TCN, self).__init__()
+        n_feature = input_dim
+        n_output = output_dim
         self.input_size = n_feature
         # num_chans = [args.hidden_size] * (args.levels - 1) + [args.NumTimeSteps]
         self.tcn = TemporalConvNet(n_feature, num_channels,
