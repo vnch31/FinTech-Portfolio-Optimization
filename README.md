@@ -13,14 +13,18 @@ Team-7 Members:
 #  Getting Started
 
 Install in Linux/Unix
-> git clone https://github.com/vnch31/FinTech-Portfolio-Optimization.git
-> cd FinTech-Portfolio-Optimization/
-> python3 -m venv env
-> source env/bin/activate
-> pip install -r requirements.txt
-
+```
+# git clone https://github.com/vnch31/FinTech-Portfolio-Optimization.git
+# cd FinTech-Portfolio-Optimization/
+# python3 -m venv env
+# source env/bin/activate
+# pip install -r requirements.txt
+```
 Running in CLI:
-> python main.py
+```
+# python main.py
+```
+
 
 Available parameters:
 ```
@@ -53,12 +57,44 @@ optional arguments:
                         Device to use
 
 ```
-## 
 
-- abc
-- abc
-- abc
-- abc
-- abc
-- abc
+## Custom Configuration
 
+Main configuration (config.json), default value:
+```
+{
+    "name": "test_tcn_2",
+    "tickers": "TGT VTI AGG DBC ^VIX",
+    "start_date": "2006-01-01",
+    "end_date": "2022-10-01",
+    "interval": "1d",
+    "timestep": 50,
+    "train": 2,
+    "device": "cpu",
+    "batch_size": 32
+}
+```
+
+Model configuration (models_config.json), example:
+```
+{
+  ....
+  "[model used]": {
+    "params": {
+      "input_dim": 4,
+      "output_dim": 4,
+      "hidden_dim": 64,
+      "layer_dim": 3,
+      "dropout_prob": 0.2,
+      "lower_bound": 0.1,
+      "upper_bound": 0.7
+    },
+
+    "hyper_params": {
+      "epochs": 2,
+      "learning_rate": 1e-2
+    }
+  }
+  ....
+}
+```
