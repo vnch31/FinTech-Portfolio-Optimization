@@ -53,14 +53,14 @@ retrain every {train} year with {timestep} days
 if __name__ == "__main__":
     # argument parser
     parser = argparse.ArgumentParser(
-        description="Dataloader options, if no argument given config.json will be used"
+        description="Dataloader options, if no argument given config.json and models_config.json will be used"
     )
     parser.add_argument('-c', '--config', help="Config File (default: config.json)")
     parser.add_argument('-m', '--modelsconfig', help="Models Config File (default: models_config.json)")
     parser.add_argument('-n', '--name', help="Name of the model")
-    parser.add_argument('-a', '--autotickers', help="Using tickers from Sentiment Analysis (Max 6), required: start & end", type=int)
+    parser.add_argument('-a', '--autotickers', help="Using tickers from Sentiment Analysis (Max 6), required: --start & --end date", type=int)
     parser.add_argument('-t', '--tickers', nargs='+',
-                        help="Tickers to use, required: start & end")
+                        help="Tickers to use, required: --start & --end date")
     parser.add_argument('-s', '--start', help="Start date : YYYY-MM-DD")
     parser.add_argument('-e', '--end', help="End date : YYYY-MM-DD")
     parser.add_argument('-i', '--interval',
