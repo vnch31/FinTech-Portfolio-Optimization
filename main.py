@@ -58,7 +58,7 @@ if __name__ == "__main__":
     parser.add_argument('-c', '--config', help="Config File (default: config.json)")
     parser.add_argument('-m', '--modelsconfig', help="Models Config File (default: models_config.json)")
     parser.add_argument('-n', '--name', help="Name of the model")
-    parser.add_argument('-a', '--autotickers', help="Using tickers from Sentiment Analysis (Max 7), required: start & end", type=int)
+    parser.add_argument('-a', '--autotickers', help="Using tickers from Sentiment Analysis (Max 6), required: start & end", type=int)
     parser.add_argument('-t', '--tickers', nargs='+',
                         help="Tickers to use, required: start & end")
     parser.add_argument('-s', '--start', help="Start date : YYYY-MM-DD")
@@ -80,8 +80,8 @@ if __name__ == "__main__":
         if args.start == None or args.end == None:
             logging.error(f"Tickers / AutoTickers requires start & end date ")
             exit(1)
-        if args.autotickers > 7:
-            logging.error(f"Maximum tickers: 7")
+        if args.autotickers > 6:
+            logging.error(f"Maximum tickers: 6")
             exit(1)
 
     # use file configuration

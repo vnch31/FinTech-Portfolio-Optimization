@@ -71,7 +71,9 @@ class Trainer():
                 self.data.loc[self.data['Ticker'] == ticker, 'Return'])
 
         # remove NaN values
-        self.data = self.data.dropna()
+        # self.data = self.data.dropna()
+
+        self.data = self.data.fillna(0)
 
         # convert date to datetime
         self.data['Date'] = pd.to_datetime(self.data['Date'])
