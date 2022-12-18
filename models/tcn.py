@@ -17,11 +17,6 @@ class TCN(nn.Module):
 
         if rebalance:
             self.rebalance = True
-            # check bound
-            # define lower and upperbound
-            if (n_output * lower_bound > 1) or (n_output * upper_bound < 1):
-                raise Exception(
-                    "Error bounds are not compatible with the number of assets")
             # set bounds
             self.lower_bound = lower_bound
             self.upper_bound = upper_bound

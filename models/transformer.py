@@ -12,11 +12,6 @@ class TransformerEncoder(nn.Module):
 
         if rebalance:
             self.rebalance = True
-            # check bound
-            # define lower and upperbound
-            if (input_dim * lower_bound > 1) or (input_dim * upper_bound < 1):
-                raise Exception(
-                    "Error bounds are not compatible with the number of assets")
             # set bounds
             self.lower_bound = lower_bound
             self.upper_bound = upper_bound
