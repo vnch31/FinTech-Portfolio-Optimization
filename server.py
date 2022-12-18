@@ -3,7 +3,7 @@ from flask_cors import CORS, cross_origin
 import threading
 
 from data import dataloader
-from utils import get_filenames
+from utils import get_filenames, load_models_config
 from main import main
 
 app = Flask(__name__)
@@ -58,8 +58,10 @@ def train():
     startDate = dataset_file_name[1]
     endDate = dataset_file_name[2]
     tickers = ' '.join(dataset_file_name[3:])
+    # get model config
+    models_config = load_models_config(len(tickers.split(' ')))
     # async call to train function
-    thread = threading.Thread(target=lambda: main(name, tickers, startDate, endDate, '1d', timestep, 2,batch_size))
+    thread = threading.Thread(target=lambda: main(name, tickers, startDate, endDate, '1d', timestep, 2,batch_size, models_config))
     thread.daemon = True
     thread.start() # swap with thread.run()
     
