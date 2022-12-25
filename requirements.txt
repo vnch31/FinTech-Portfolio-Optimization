@@ -4,3 +4,5 @@ matplotlib
 yfinance
 transformers
 GoogleNews
+flask
+flask_cors
